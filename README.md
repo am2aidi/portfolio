@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Portfolio (React + Vite)
 
 A minimal React portfolio scaffold created for you.
@@ -50,3 +51,6 @@ Notes
 - When you're ready to push, commit the project to a new GitHub repo and tell me — I can add an export/import JSON button or deploy to Vercel/GitHub Pages.
 
 Enjoy! 🚀
+=======
+# portfolio
+>>>>>>> 1efac2347533607c19bba6ea23a37530e1f51a65
