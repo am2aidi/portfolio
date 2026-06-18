@@ -145,8 +145,9 @@ export default function App() {
   const [theme, setTheme] = useState('dark')
   const [activeTab, setActiveTab] = useState('all')
   const [showAllSkills, setShowAllSkills] = useState(false)
+  const [isAdminBtnVisible, setIsAdminBtnVisible] = useState(false)
 
-  // Load from LocalStorage
+  // Load from LocalStorage and Check URL Params
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
@@ -165,7 +166,25 @@ export default function App() {
     const savedTheme = localStorage.getItem('theme') || 'dark'
     setTheme(savedTheme)
     document.documentElement.setAttribute('data-theme', savedTheme)
+
+    // Secret entry 1: check URL query parameters (e.g. yoursite.com/?admin=true)
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('admin') === 'true' || params.get('edit') === 'true') {
+      setIsAdminBtnVisible(true)
+    }
   }, [])
+
+  // Secret entry 2: keyboard shortcut Ctrl + Alt + E
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'e') {
+        e.preventDefault()
+        handleAdminAccessClick()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [showAdmin])
 
   // Sync to LocalStorage
   useEffect(() => {
@@ -219,7 +238,8 @@ export default function App() {
       {/* Navigation Header */}
       <nav className="navbar no-print">
         <div className="navbar-inner container">
-          <a href="#" className="logo">
+          {/* Secret entry 3: Double click on logo opens admin dialog */}
+          <a href="#" className="logo" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
             {data.profile.name.split(' ')[0]}.
           </a>
           <div className="nav-links">
@@ -247,10 +267,12 @@ export default function App() {
               Hire Me 💼
             </a>
 
-            {/* Admin button */}
-            <button className="btn btn-secondary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }} onClick={handleAdminAccessClick}>
-              {showAdmin ? 'Close Editor' : 'Admin'}
-            </button>
+            {/* Admin button is hidden from public view unless query param admin=true is set */}
+            {(isAdminBtnVisible || showAdmin) && (
+              <button className="btn btn-secondary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }} onClick={handleAdminAccessClick}>
+                {showAdmin ? 'Close Editor' : 'Admin'}
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -603,7 +625,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="footer" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
         <div className="container">
           <div className="footer-logo">{data.profile.name}</div>
           <p style={{ marginBottom: '1rem' }}>Full Stack Developer • Information Systems Graduate</p>
