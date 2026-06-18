@@ -17,11 +17,10 @@ This project contains the professional portfolio and resume website of **Kwizera
 
 3. **Secret Admin Panel Triggers**:
    - The "Admin" editor button is **hidden** from public navbar view.
-   - Three secret developer entry shortcuts trigger the passcode prompt:
+   - Three secret developer entry shortcuts toggle the admin panel directly (without any passcode prompt):
      - **URL parameter**: Append `?admin=true` or `?edit=true` to the URL.
      - **Double-click**: Double-click the navbar logo (`Kwizera.`) or the footer copyright signature text.
      - **Keyboard Shortcut**: Press `Ctrl + Alt + E` anywhere on the page.
-   - **Passcode**: Quietly verify against `zaidi` or `admin`. Do not display passcode hints in the verification modal.
 
 4. **Gmail Integration**:
    - The contact form submissions do not require external email servers or backend configurations.
