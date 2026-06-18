@@ -77,7 +77,7 @@ const defaultData = {
     },
     {
       title: 'Programming Instructor & Mentor',
-      link: 'https://github.com/am2aidi',
+      link: 'https://github.com/am2aidi/portfolio',
       image: '',
       description: 'Taught coding basics (HTML/CSS, Python, logic flows) to peers and junior students in the Department of ICT, Faculty of Information Systems.',
       tags: 'University of Rwanda, Mentorship'
@@ -117,7 +117,7 @@ const defaultData = {
     { name: 'Luganda', level: 'Conversational' }
   ],
   social: {
-    github: 'https://github.com/am2aidi',
+    github: 'https://github.com/am2aidi/portfolio',
     linkedin: 'https://linkedin.com/in/kwizera-zaidi',
     instagram: '',
     x: ''
@@ -139,7 +139,6 @@ export default function App() {
     if (raw) {
       try {
         const parsed = JSON.parse(raw)
-        // Merge with defaultData structure to ensure fields exist
         setData({
           ...defaultData,
           ...parsed,
@@ -203,7 +202,7 @@ export default function App() {
     <div className="app">
       {/* Navigation Header */}
       <nav className="navbar no-print">
-        <div className="navbar-inner">
+        <div className="navbar-inner container">
           <a href="#" className="logo">
             {data.profile.name.split(' ')[0]}.
           </a>
@@ -237,14 +236,14 @@ export default function App() {
 
       {/* Admin Panel Render */}
       {showAdmin && (
-        <div className="admin-section-container no-print">
+        <div className="admin-section-container container no-print">
           <AdminPanel data={data} onChange={handleUpdate} onClose={() => setShowAdmin(false)} />
         </div>
       )}
 
       {/* Hero Section */}
       <header className="hero" id="home">
-        <div className="hero-inner">
+        <div className="hero-inner container">
           <div className="hero-content">
             <span className="badge no-print">{data.profile.headline}</span>
             <h1 className="hero-title">
@@ -321,18 +320,17 @@ export default function App() {
         
         {/* About Section */}
         <section className="section" id="about">
-          <div className="section-header">
-            <span className="section-tag no-print">Biography</span>
-            <h2 className="section-title">About Me</h2>
-          </div>
-
-          <div className="about-grid">
+          <div className="about-grid container">
             <div className="about-text-block">
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
+              <div className="section-header" style={{ marginBottom: '2rem' }}>
+                <span className="section-tag no-print">Biography</span>
+                <h2 className="section-title">About Me</h2>
+              </div>
+              <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
                 {data.profile.bio}
               </p>
 
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginTop: '1.5rem', color: 'var(--accent-secondary)' }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', marginTop: '1.5rem', color: 'var(--accent-secondary)' }}>
                 Hobbies & Interests
               </h3>
               <div className="badge-container">
@@ -343,10 +341,10 @@ export default function App() {
                 ))}
               </div>
 
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginTop: '1.5rem', color: 'var(--accent-primary)' }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', marginTop: '1.5rem', color: 'var(--accent-primary)' }}>
                 Languages Spoken
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '0.5rem' }}>
                 {data.languages && data.languages.map((lang, i) => (
                   <div key={i} className="language-item">
                     <span className="lang-name">{lang.name}</span>
@@ -394,121 +392,128 @@ export default function App() {
         {/* Education History Section */}
         {data.educationList && data.educationList.length > 0 && (
           <section className="section" id="education">
-            <div className="section-header">
-              <span className="section-tag no-print">Academic background</span>
-              <h2 className="section-title">Education History</h2>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              {data.educationList.map((edu, i) => (
-                <div key={i} className="glass-card" style={{ padding: '1.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                    <h3 className="card-title" style={{ margin: 0 }}>{edu.level}</h3>
-                    <span className="lang-level" style={{ padding: '0.3rem 0.6rem' }}>{edu.date}</span>
+            <div className="container">
+              <div className="section-header">
+                <span className="section-tag no-print">Academic background</span>
+                <h2 className="section-title">Education History</h2>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                {data.educationList.map((edu, i) => (
+                  <div key={i} className="glass-card" style={{ padding: '2rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                      <h3 className="card-title" style={{ margin: 0 }}>{edu.level}</h3>
+                      <span className="lang-level" style={{ padding: '0.3rem 0.6rem' }}>{edu.date}</span>
+                    </div>
+                    <h4 style={{ color: 'var(--accent-secondary)', fontWeight: 600, fontSize: '1rem', marginBottom: '0.75rem' }}>
+                      {edu.institution}
+                    </h4>
+                    <p className="card-description" style={{ fontSize: '0.95rem' }}>{edu.details}</p>
                   </div>
-                  <h4 style={{ color: 'var(--accent-secondary)', fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.75rem' }}>
-                    {edu.institution}
-                  </h4>
-                  <p className="card-description" style={{ fontSize: '0.9rem' }}>{edu.details}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </section>
         )}
 
         {/* Skills Section */}
         <section className="section" id="skills">
-          <div className="section-header">
-            <span className="section-tag no-print">Proficiency</span>
-            <h2 className="section-title">Skills & Technologies</h2>
-          </div>
+          <div className="container">
+            <div className="section-header">
+              <span className="section-tag no-print">Proficiency</span>
+              <h2 className="section-title">Skills & Technologies</h2>
+            </div>
 
-          <div className="skills-grid">
-            {data.skills && data.skills.map((skill, i) => (
-              <div key={i} className="skill-card">
-                <div className="skill-info">
-                  <span className="skill-name">{skill.name}</span>
-                  <span className="skill-percentage">{skill.level}%</span>
+            <div className="skills-grid">
+              {data.skills && data.skills.map((skill, i) => (
+                <div key={i} className="skill-card">
+                  <div className="skill-info">
+                    <span className="skill-name">{skill.name}</span>
+                    <span className="skill-percentage">{skill.level}%</span>
+                  </div>
+                  <div className="skill-bar-outer">
+                    <div className="skill-bar-inner" style={{ width: `${skill.level}%` }}></div>
+                  </div>
                 </div>
-                <div className="skill-bar-outer">
-                  <div className="skill-bar-inner" style={{ width: `${skill.level}%` }}></div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Projects / Works Section */}
         <section className="section" id="projects">
-          <div className="section-header">
-            <span className="section-tag no-print">My Work</span>
-            <h2 className="section-title">Featured Portfolio</h2>
-          </div>
+          <div className="container">
+            <div className="section-header">
+              <span className="section-tag no-print">My Work</span>
+              <h2 className="section-title">Featured Portfolio</h2>
+            </div>
 
-          <div className="projects-tabs no-print">
-            <button 
-              className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveTab('all')}
-            >
-              All Items
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
-              onClick={() => setActiveTab('projects')}
-            >
-              Projects
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'works' ? 'active' : ''}`}
-              onClick={() => setActiveTab('works')}
-            >
-              Professional Experience
-            </button>
-          </div>
+            <div className="projects-tabs no-print">
+              <button 
+                className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
+                onClick={() => setActiveTab('all')}
+              >
+                All Items
+              </button>
+              <button 
+                className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
+                onClick={() => setActiveTab('projects')}
+              >
+                Projects
+              </button>
+              <button 
+                className={`tab-btn ${activeTab === 'works' ? 'active' : ''}`}
+                onClick={() => setActiveTab('works')}
+              >
+                Professional Experience
+              </button>
+            </div>
 
-          <div className="grid-layout">
-            {filteredItems.length === 0 ? (
-              <p className="muted" style={{ gridColumn: 'span 3', textAlign: 'center', padding: '2rem' }}>
-                No items found in this category. Open the Admin Editor to add some!
-              </p>
-            ) : (
-              filteredItems.map((item, i) => (
-                <ProjectCard key={i} project={item} />
-              ))
-            )}
+            <div className="grid-layout">
+              {filteredItems.length === 0 ? (
+                <p className="muted" style={{ gridColumn: 'span 3', textAlign: 'center', padding: '2rem' }}>
+                  No items found in this category. Open the Admin Editor to add some!
+                </p>
+              ) : (
+                filteredItems.map((item, i) => (
+                  <ProjectCard key={i} project={item} />
+                ))
+              )}
+            </div>
           </div>
         </section>
 
         {/* References Section */}
         {data.references && data.references.length > 0 && (
           <section className="section" id="references">
-            <div className="section-header">
-              <span className="section-tag no-print">Verification</span>
-              <h2 className="section-title">Professional References</h2>
-            </div>
-            <div className="grid-layout" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
-              {data.references.map((ref, i) => (
-                <div key={i} className="glass-card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  <h3 className="card-title" style={{ fontSize: '1.2rem' }}>{ref.name}</h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                    <span>📞 {ref.phone}</span>
-                    <span>✉️ <a href={`mailto:${ref.email}`} style={{ color: 'var(--accent-primary)' }}>{ref.email}</a></span>
+            <div className="container">
+              <div className="section-header">
+                <span className="section-tag no-print">Verification</span>
+                <h2 className="section-title">Professional References</h2>
+              </div>
+              <div className="grid-layout" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                {data.references.map((ref, i) => (
+                  <div key={i} className="glass-card" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <h3 className="card-title" style={{ fontSize: '1.3rem', margin: 0 }}>{ref.name}</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+                      <span>📞 {ref.phone}</span>
+                      <span>✉️ <a href={`mailto:${ref.email}`} style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}>{ref.email}</a></span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </section>
         )}
 
         {/* Contact Section */}
         <section className="section no-print" id="contact">
-          <div className="section-header">
-            <span className="section-tag">Let's Connect</span>
-            <h2 className="section-title">Contact Me</h2>
-          </div>
-
-          <div className="contact-grid">
+          <div className="contact-grid container">
             <div className="contact-info">
-              <p className="muted" style={{ fontSize: '1.05rem' }}>
+              <div className="section-header" style={{ marginBottom: '2rem' }}>
+                <span className="section-tag">Let's Connect</span>
+                <h2 className="section-title">Contact Me</h2>
+              </div>
+              <p className="muted" style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>
                 Have an exciting project, job opening, or want to discuss full-stack web development and AI integrations? Get in touch directly!
               </p>
 
@@ -572,16 +577,18 @@ export default function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <div className="footer-logo">{data.profile.name}</div>
-        <p style={{ marginBottom: '1rem' }}>Full Stack Developer • Information Systems Graduate</p>
-        <p>© {new Date().getFullYear()} {data.profile.name}. All rights reserved.</p>
+        <div className="container">
+          <div className="footer-logo">{data.profile.name}</div>
+          <p style={{ marginBottom: '1rem' }}>Full Stack Developer • Information Systems Graduate</p>
+          <p>© {new Date().getFullYear()} {data.profile.name}. All rights reserved.</p>
+        </div>
       </footer>
 
       {/* Passcode Modal Overlay */}
       {showPasscodeModal && (
         <div className="modal-overlay">
           <form className="modal-content" onSubmit={verifyPasscode}>
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', color: 'var(--text-primary)' }}>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', color: 'var(--text-primary)', fontWeight: 800 }}>
               Unlock Editor
             </h3>
             <p className="muted" style={{ fontSize: '0.9rem' }}>
