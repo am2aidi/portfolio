@@ -9,7 +9,6 @@ export default function AdminPanel({ data, onChange, onClose }) {
   const [hobbyInput, setHobbyInput] = useState('')
   const [language, setLanguage] = useState({ name: '', level: 'Fluent' })
   const [edu, setEdu] = useState({ level: '', institution: '', date: '', details: '' })
-  const [refItem, setRefItem] = useState({ name: '', phone: '', email: '' })
 
   function toBase64(file) {
     return new Promise((res, rej) => {
@@ -87,14 +86,6 @@ export default function AdminPanel({ data, onChange, onClose }) {
     setEdu({ level: '', institution: '', date: '', details: '' })
   }
 
-  // Add Reference
-  function addReference() {
-    if (!refItem.name) return alert('Reference name required')
-    const updated = { ...data, references: [...(data.references || []), refItem] }
-    onChange(updated)
-    setRefItem({ name: '', phone: '', email: '' })
-  }
-
   function addWork() {
     if (!work.title) return alert('Work title required')
     const updated = { ...data, works: [...(data.works || []), work] }
@@ -151,13 +142,12 @@ export default function AdminPanel({ data, onChange, onClose }) {
       projects: [],
       works: [],
       educationList: [],
-      references: [],
       certificates: [],
       events: [],
       skills: [],
       hobbies: [],
       languages: [],
-      social: { github: '', linkedin: '', instagram: '', x: '' }
+      social: { github: '', linkedin: '', instagram: '', x: '', whatsapp: '', hura: '' }
     })
   }
 
@@ -219,7 +209,7 @@ export default function AdminPanel({ data, onChange, onClose }) {
         <section className="admin-card">
           <h3 className="admin-card-title">Personal Details</h3>
           <div className="form-group"><input className="form-control" placeholder="Full Name" value={data.profile?.name || ''} onChange={(e) => updateProfile('name', e.target.value)} /></div>
-          <div className="form-group"><input className="form-control" placeholder="Job Title (e.g. Full Stack Developer)" value={data.profile?.title || ''} onChange={(e) => updateProfile('title', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Job Title" value={data.profile?.title || ''} onChange={(e) => updateProfile('title', e.target.value)} /></div>
           <div className="form-group"><input className="form-control" placeholder="Headline / Short Intro" value={data.profile?.headline || ''} onChange={(e) => updateProfile('headline', e.target.value)} /></div>
           <div className="form-group"><input className="form-control" placeholder="Years of Experience (e.g. 2+)" value={data.profile?.experienceYears || ''} onChange={(e) => updateProfile('experienceYears', e.target.value)} /></div>
           
@@ -233,12 +223,12 @@ export default function AdminPanel({ data, onChange, onClose }) {
           <div className="form-group"><input className="form-control" placeholder="Marital Status" value={data.profile?.maritalStatus || ''} onChange={(e) => updateProfile('maritalStatus', e.target.value)} /></div>
           
           <div className="form-group"><textarea className="form-control" style={{ minHeight: '80px' }} placeholder="Detailed Biography Summary" value={data.profile?.bio || ''} onChange={(e) => updateProfile('bio', e.target.value)} /></div>
-          <div className="form-group"><input className="form-control" placeholder="Availability Status (e.g. Open to Work)" value={data.profile?.availability || ''} onChange={(e) => updateProfile('availability', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Availability Status" value={data.profile?.availability || ''} onChange={(e) => updateProfile('availability', e.target.value)} /></div>
           <div className="form-group"><input className="form-control" placeholder="Primary Education Summary" value={data.profile?.education || ''} onChange={(e) => updateProfile('education', e.target.value)} /></div>
           <div className="form-group"><textarea className="form-control" style={{ minHeight: '50px' }} placeholder="Experience Focus / Core Interests" value={data.profile?.experienceNotes || ''} onChange={(e) => updateProfile('experienceNotes', e.target.value)} /></div>
           
           <div className="form-group">
-            <label className="form-label" style={{ fontSize: '0.8rem' }}>Upload Profile Image (replaces public picture)</label>
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Upload Profile Image</label>
             <input type="file" className="form-control" accept="image/*" onChange={handleProfileImage} />
           </div>
           <div className="form-group">
@@ -250,18 +240,12 @@ export default function AdminPanel({ data, onChange, onClose }) {
         {/* Social Links */}
         <section className="admin-card">
           <h3 className="admin-card-title">Social Accounts</h3>
-          <div className="form-group">
-            <input className="form-control" placeholder="GitHub Profile Link" value={data.social?.github || ''} onChange={(e) => updateSocial('github', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="LinkedIn Profile Link" value={data.social?.linkedin || ''} onChange={(e) => updateSocial('linkedin', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="X / Twitter Link" value={data.social?.x || ''} onChange={(e) => updateSocial('x', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Instagram Link" value={data.social?.instagram || ''} onChange={(e) => updateSocial('instagram', e.target.value)} />
-          </div>
+          <div className="form-group"><input className="form-control" placeholder="GitHub Profile Link" value={data.social?.github || ''} onChange={(e) => updateSocial('github', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="LinkedIn Profile Link" value={data.social?.linkedin || ''} onChange={(e) => updateSocial('linkedin', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="X / Twitter Link" value={data.social?.x || ''} onChange={(e) => updateSocial('x', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Instagram Link" value={data.social?.instagram || ''} onChange={(e) => updateSocial('instagram', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="WhatsApp Link (e.g. https://wa.me/250785283267)" value={data.social?.whatsapp || ''} onChange={(e) => updateSocial('whatsapp', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Hura Profile Link" value={data.social?.hura || ''} onChange={(e) => updateSocial('hura', e.target.value)} /></div>
         </section>
 
         {/* Education History List */}
@@ -278,24 +262,6 @@ export default function AdminPanel({ data, onChange, onClose }) {
               <div key={idx} className="admin-list-item">
                 <span>{ed.level} - {ed.institution.substring(0, 15)}...</span>
                 <button className="admin-delete-btn" onClick={() => removeItem('educationList', idx)}>Delete</button>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* References List */}
-        <section className="admin-card">
-          <h3 className="admin-card-title">Manage References</h3>
-          <div className="form-group"><input className="form-control" placeholder="Reference Name" value={refItem.name} onChange={(e) => setRefItem({...refItem, name: e.target.value})} /></div>
-          <div className="form-group"><input className="form-control" placeholder="Phone Number" value={refItem.phone} onChange={(e) => setRefItem({...refItem, phone: e.target.value})} /></div>
-          <div className="form-group"><input className="form-control" placeholder="Email Address" value={refItem.email} onChange={(e) => setRefItem({...refItem, email: e.target.value})} /></div>
-          <button className="btn btn-primary" onClick={addReference}>Add Reference</button>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '150px', overflowY: 'auto', marginTop: '0.5rem' }}>
-            {data.references && data.references.map((r, idx) => (
-              <div key={idx} className="admin-list-item">
-                <span>{r.name}</span>
-                <button className="admin-delete-btn" onClick={() => removeItem('references', idx)}>Delete</button>
               </div>
             ))}
           </div>
