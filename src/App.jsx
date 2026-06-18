@@ -142,6 +142,9 @@ export default function App() {
   const [theme, setTheme] = useState('dark')
   const [activeTab, setActiveTab] = useState('all')
   const [showAllSkills, setShowAllSkills] = useState(false)
+  const [showPasscodeModal, setShowPasscodeModal] = useState(false)
+  const [passcodeInput, setPasscodeInput] = useState('')
+  const [passcodeError, setPasscodeError] = useState('')
 
   // Load from LocalStorage and check URL query parameters
   useEffect(() => {
@@ -166,7 +169,9 @@ export default function App() {
     // Secret entry 1: check URL query parameters (e.g. yoursite.com/?admin=true or ?edit=true)
     const params = new URLSearchParams(window.location.search)
     if (params.get('admin') === 'true' || params.get('edit') === 'true') {
-      setShowAdmin(true)
+      setPasscodeInput('')
+      setPasscodeError('')
+      setShowPasscodeModal(true)
     }
   }, [])
 
@@ -175,12 +180,12 @@ export default function App() {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'e') {
         e.preventDefault()
-        handleAdminAccessToggle()
+        handleAdminAccessClick()
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
+  }, [showAdmin])
 
   // Sync to LocalStorage
   useEffect(() => {
@@ -196,8 +201,24 @@ export default function App() {
     setData(prev => ({ ...prev, ...partial }))
   }
 
-  function handleAdminAccessToggle() {
-    setShowAdmin(prev => !prev)
+  function handleAdminAccessClick() {
+    if (showAdmin) {
+      setShowAdmin(false)
+    } else {
+      setPasscodeInput('')
+      setPasscodeError('')
+      setShowPasscodeModal(true)
+    }
+  }
+
+  function verifyPasscode(e) {
+    e.preventDefault()
+    if (passcodeInput.toLowerCase() === 'zaidi' || passcodeInput.toLowerCase() === 'admin') {
+      setShowPasscodeModal(false)
+      setShowAdmin(true)
+    } else {
+      setPasscodeError('Incorrect passcode.')
+    }
   }
 
   const handleContactSubmit = (e) => {
@@ -231,8 +252,8 @@ export default function App() {
       {/* Navigation Header */}
       <nav className="navbar no-print">
         <div className="navbar-inner container">
-          {/* Secret entry 2: Double click on logo directly toggles admin editor */}
-          <a href="#" className="logo" onDoubleClick={handleAdminAccessToggle} title="Double-click to verify admin">
+          {/* Secret entry 2: Double click on logo directly triggers admin passcode verification */}
+          <a href="#" className="logo" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
             {data.profile.name.split(' ')[0]}.
           </a>
           <div className="nav-links">
@@ -607,14 +628,48 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      {/* Secret entry 3: Double click on footer directly toggles admin editor */}
-      <footer className="footer" onDoubleClick={handleAdminAccessToggle} title="Double-click to verify admin">
+      {/* Secret entry 3: Double click on footer directly triggers admin passcode verification */}
+      <footer className="footer" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
         <div className="container">
           <div className="footer-logo">{data.profile.name}</div>
           <p style={{ marginBottom: '1rem' }}>Full Stack Developer • Information Systems Graduate</p>
           <p>© {new Date().getFullYear()} {data.profile.name}. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* Passcode Modal Overlay */}
+      {showPasscodeModal && (
+        <div className="modal-overlay">
+          <form className="modal-content" onSubmit={verifyPasscode}>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', color: 'var(--text-primary)', fontWeight: 800 }}>
+              Unlock Editor
+            </h3>
+            <div className="form-group" style={{ textAlign: 'left' }}>
+              <input
+                className="form-control"
+                type="password"
+                placeholder="Enter passcode"
+                value={passcodeInput}
+                onChange={(e) => setPasscodeInput(e.target.value)}
+                autoFocus
+              />
+              {passcodeError && (
+                <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', fontWeight: 600, display: 'block', textAlign: 'center' }}>
+                  {passcodeError}
+                </span>
+              )}
+            </div>
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
+              <button type="button" className="btn btn-secondary" style={{ flex: 1 }} onClick={() => setShowPasscodeModal(false)}>
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
+                Verify
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   )
 }
