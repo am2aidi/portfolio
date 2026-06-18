@@ -8,8 +8,8 @@ const defaultData = {
   profile: {
     name: 'Kwizera Zaidi',
     title: 'Full Stack Developer',
-    headline: 'Information Systems Graduate & Tech Instructor',
-    bio: 'I am Kwizera Zaidi, a motivated and hardworking Full Stack Developer with a strong foundation in Computer Science, Mathematics, and Economics. Graduated in Information Systems from the University of Rwanda, I specialize in web database architectures, programming fundamentals, and building optimized, AI-powered applications. I am deeply interested in teaching coding and developing scalable platforms.',
+    headline: 'Information Systems Graduate & AI Integration Specialist',
+    bio: 'I am Kwizera Zaidi, a motivated and hardworking Full Stack Developer currently pursuing my degree in Information Systems at the University of Rwanda (expected graduation 2027). I possess a strong foundation in Computer Science, Mathematics, and Economics, and specialize in web database applications using Python, Flask, React, and MySQL. I actively integrate AI technologies to write cleaner, faster code, and I have trained prompt models to optimize my engineering workflows. I am also dedicated to education, having mentored university peers and tutored primary/secondary students.',
     email: 'zaidikwizera@gmail.com',
     phone: '0785283267',
     address: 'Kigali, Rwanda',
@@ -20,22 +20,22 @@ const defaultData = {
     maritalStatus: 'Single',
     location: 'Kigali, Rwanda',
     availability: 'Open to Work',
-    education: 'University of Rwanda (Information Systems)',
-    experienceNotes: 'Software development, Teaching programming fundamentals, and AI integration.',
+    education: 'University of Rwanda (Information Systems, Class of 2027)',
+    experienceNotes: 'AI-assisted full-stack development, Python/Flask API design, and tutoring programming fundamentals.',
     image: '/profile.jpeg',
     cv: '',
     experienceYears: '2+'
   },
   skills: [
     { name: 'Computer Science & Software Development', level: '88' },
-    { name: 'Python & Flask Framework', level: '85' },
     { name: 'React.js & Frontend Architectures', level: '85' },
+    { name: 'Python & Flask Framework', level: '85' },
     { name: 'Java Programming', level: '78' },
     { name: 'MySQL & Database Design', level: '82' },
+    { name: 'AI Workflows & Prompt Fine-Tuning', level: '85' },
     { name: 'Programming Fundamentals', level: '90' },
     { name: 'HTML5 & CSS3 (Vanilla / Modern)', level: '92' },
-    { name: 'Economics & Quantitative Math', level: '80' },
-    { name: 'AI Workflows & Prompt Engineering', level: '75' }
+    { name: 'Economics & Quantitative Math', level: '80' }
   ],
   projects: [
     {
@@ -69,11 +69,11 @@ const defaultData = {
   ],
   works: [
     {
-      title: 'Waiter at Nakka',
-      link: '#',
+      title: 'AI Workflow Integration Specialist',
+      link: 'https://github.com/am2aidi/portfolio',
       image: '',
-      description: 'Acquired professional communications skills, teamwork capabilities, customer service, and structured problem solving in a fast-paced team environment.',
-      tags: 'Oct 2022 – May 2023, Customer Service'
+      description: 'Built productivity workflows incorporating AI models. Actively experimented with prompt fine-tuning to accelerate coding, generate tests, and optimize database queries.',
+      tags: 'AI, LLMs, Automation'
     },
     {
       title: 'Programming Instructor & Mentor',
@@ -81,13 +81,27 @@ const defaultData = {
       image: '',
       description: 'Taught coding basics (HTML/CSS, Python, logic flows) to peers and junior students in the Department of ICT, Faculty of Information Systems.',
       tags: 'University of Rwanda, Mentorship'
+    },
+    {
+      title: 'Primary & Secondary School Tutor',
+      link: '#',
+      image: '',
+      description: 'Tutored primary and secondary school pupils in mathematics, foundational science, and basic computer literacy to strengthen academic performance.',
+      tags: 'Education, Tutoring'
+    },
+    {
+      title: 'Waiter at Nakka',
+      link: '#',
+      image: '',
+      description: 'Acquired professional communications skills, teamwork capabilities, customer service, and structured problem solving in a fast-paced team environment.',
+      tags: 'Oct 2022 – May 2023, Customer Service'
     }
   ],
   educationList: [
     {
       level: 'University of Rwanda',
       institution: 'Department of ICT, Faculty of Information Systems',
-      date: 'Jun 2023 – Present',
+      date: 'Jun 2023 – 2027 (Expected Graduation)',
       details: 'Currently studying Information Systems. Gaining advanced training in web databases, quantitative math, systems analysis, and coding frameworks.'
     },
     {
@@ -415,7 +429,7 @@ export default function App() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {data.educationList.map((edu, i) => (
                   <div key={i} className="glass-card" style={{ padding: '2rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifycontent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
                       <h3 className="card-title" style={{ margin: 0 }}>{edu.level}</h3>
                       <span className="lang-level" style={{ padding: '0.3rem 0.6rem' }}>{edu.date}</span>
                     </div>
