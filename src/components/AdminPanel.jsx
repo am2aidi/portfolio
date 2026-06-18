@@ -1,127 +1,446 @@
 import React, { useState } from 'react'
 
-export default function AdminPanel({ data, onChange }) {
-  const [project, setProject] = useState({ title: '', description: '', link: '', image: '' })
-  const [certificate, setCertificate] = useState({ title: '', issuer: '', link: '', image: '' })
+export default function AdminPanel({ data, onChange, onClose }) {
+  const [project, setProject] = useState({ title: '', description: '', link: '', image: '', tags: '' })
+  const [work, setWork] = useState({ title: '', description: '', link: '', image: '', tags: '' })
+  const [certificate, setCertificate] = useState({ title: '', issuer: '', date: '', image: '', link: '' })
   const [eventItem, setEventItem] = useState({ title: '', date: '', description: '' })
-+
-+  function toBase64(file) {
-+    return new Promise((res, rej) => {
-+      const reader = new FileReader()
-+      reader.onload = () => res(reader.result)
-+      reader.onerror = rej
-+      reader.readAsDataURL(file)
-+    })
-+  }
-+
-+  async function handleProjectImage(e) {
-+    const f = e.target.files[0]
-+    if (f) {
-+      const b = await toBase64(f)
-+      setProject(p => ({ ...p, image: b }))
-+    }
-+  }
-+
-+  async function handleCertificateImage(e) {
-+    const f = e.target.files[0]
-+    if (f) {
-+      const b = await toBase64(f)
-+      setCertificate(p => ({ ...p, image: b }))
-+    }
-+  }
-+
-+  function addProject(e) {
-+    e.preventDefault()
-+    const next = { ...data, projects: [ ...(data.projects||[]), project ] }
-+    onChange(next)
-+    setProject({ title: '', description: '', link: '', image: '' })
-+  }
-+
-+  function addCertificate(e) {
-+    e.preventDefault()
-+    const next = { ...data, certificates: [ ...(data.certificates||[]), certificate ] }
-+    onChange(next)
-+    setCertificate({ title: '', issuer: '', link: '', image: '' })
-+  }
-+
-+  function addEvent(e) {
-+    e.preventDefault()
-+    const next = { ...data, events: [ ...(data.events||[]), eventItem ] }
-+    onChange(next)
-+    setEventItem({ title: '', date: '', description: '' })
-+  }
-+
-+  function clearAll() {
-+    if (!confirm('Clear all saved portfolio data?')) return
-+    onChange({ profile: data.profile, projects: [], certificates: [], events: [] })
-+  }
-+
-+  function updateProfile(e) {
-+    e.preventDefault()
-+    const form = e.target
-+    const name = form.name.value
-+    const title = form.title.value
-+    const email = form.email.value
-+    onChange({ profile: { name, title, email }, projects: data.projects, certificates: data.certificates, events: data.events })
-+    alert('Profile updated')
-+  }
-+
-   return (
--    <div style={{padding:12,background:'#071021'}}>
--      <h3>Admin (local)</h3>
--      <form onSubmit={(e)=>{e.preventDefault(); alert('not wired')}}>
--        <label>Project title</label>
--        <input value={project.title} onChange={(e)=>setProject(p=>({...p,title:e.target.value}))} />
--        <label>Desc</label>
--        <input value={project.description} onChange={(e)=>setProject(p=>({...p,description:e.target.value}))} />
--        <button type="submit">Add</button>
--      </form>
--    </div>
-+    <div className="admin-panel">
-+      <h3>Editor (saved to browser)</h3>
-+
-+      <form className="admin-section" onSubmit={updateProfile}>
-+        <h4>Profile</h4>
-+        <input name="name" placeholder="Name" defaultValue={data.profile.name} />
-+        <input name="title" placeholder="Title" defaultValue={data.profile.title} />
-+        <input name="email" placeholder="Email" defaultValue={data.profile.email} />
-+        <div style={{display:'flex',gap:8}}>
-+          <button className="button" type="submit">Save Profile</button>
-+          <button type="button" className="ghost" onClick={clearAll}>Clear All</button>
-+        </div>
-+      </form>
-+
-+      <form className="admin-section" onSubmit={addProject}>
-+        <h4>Add Project</h4>
-+        <input placeholder="Title" value={project.title} onChange={(e)=>setProject(p=>({...p,title:e.target.value}))} required />
-+        <input placeholder="Link (https://...)" value={project.link} onChange={(e)=>setProject(p=>({...p,link:e.target.value}))} />
-+        <textarea placeholder="Short description" value={project.description} onChange={(e)=>setProject(p=>({...p,description:e.target.value}))} />
-+        <input type="file" accept="image/*" onChange={handleProjectImage} />
-+        <div style={{display:'flex',gap:8}}>
-+          <button className="button" type="submit">Add Project</button>
-+        </div>
-+      </form>
-+
-+      <form className="admin-section" onSubmit={addCertificate}>
-+        <h4>Add Certificate</h4>
-+        <input placeholder="Title" value={certificate.title} onChange={(e)=>setCertificate(p=>({...p,title:e.target.value}))} required />
-+        <input placeholder="Issuer" value={certificate.issuer} onChange={(e)=>setCertificate(p=>({...p,issuer:e.target.value}))} />
-+        <input placeholder="Link" value={certificate.link} onChange={(e)=>setCertificate(p=>({...p,link:e.target.value}))} />
-+        <input type="file" accept="image/*" onChange={handleCertificateImage} />
-+        <div style={{display:'flex',gap:8}}>
-+          <button className="button" type="submit">Add Certificate</button>
-+        </div>
-+      </form>
-+
-+      <form className="admin-section" onSubmit={addEvent}>
-+        <h4>Add Event</h4>
-+        <input placeholder="Title" value={eventItem.title} onChange={(e)=>setEventItem(p=>({...p,title:e.target.value}))} required />
-+        <input placeholder="Date (YYYY-MM-DD)" value={eventItem.date} onChange={(e)=>setEventItem(p=>({...p,date:e.target.value}))} />
-+        <textarea placeholder="Description" value={eventItem.description} onChange={(e)=>setEventItem(p=>({...p,description:e.target.value}))} />
-+        <div style={{display:'flex',gap:8}}>
-+          <button className="button" type="submit">Add Event</button>
-+        </div>
-+      </form>
-+    </div>
-   )
- }
+  const [skill, setSkill] = useState({ name: '', level: '80' })
+  const [hobbyInput, setHobbyInput] = useState('')
+  const [language, setLanguage] = useState({ name: '', level: 'Fluent' })
+
+  function toBase64(file) {
+    return new Promise((res, rej) => {
+      const reader = new FileReader()
+      reader.onload = () => res(reader.result)
+      reader.onerror = rej
+      reader.readAsDataURL(file)
+    })
+  }
+
+  async function handleProfileImage(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const dataUrl = await toBase64(file)
+    updateProfile('image', dataUrl)
+  }
+
+  async function handleProjectImage(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const dataUrl = await toBase64(file)
+    setProject((p) => ({ ...p, image: dataUrl }))
+  }
+
+  async function handleWorkImage(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const dataUrl = await toBase64(file)
+    setWork((w) => ({ ...w, image: dataUrl }))
+  }
+
+  async function handleCertificateImage(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const dataUrl = await toBase64(file)
+    setCertificate((c) => ({ ...c, image: dataUrl }))
+  }
+
+  function updateProfile(key, value) {
+    const updated = {
+      ...data,
+      profile: { ...(data.profile || {}), [key]: value }
+    }
+    onChange(updated)
+  }
+
+  function updateSocial(key, value) {
+    const updated = {
+      ...data,
+      social: { ...(data.social || {}), [key]: value }
+    }
+    onChange(updated)
+  }
+
+  // Add handlers
+  function addProject() {
+    if (!project.title) return alert('Project title required')
+    const updated = { ...data, projects: [...(data.projects || []), project] }
+    onChange(updated)
+    setProject({ title: '', description: '', link: '', image: '', tags: '' })
+  }
+
+  function addWork() {
+    if (!work.title) return alert('Work title required')
+    const updated = { ...data, works: [...(data.works || []), work] }
+    onChange(updated)
+    setWork({ title: '', description: '', link: '', image: '', tags: '' })
+  }
+
+  function addCertificate() {
+    if (!certificate.title) return alert('Certificate title required')
+    const updated = { ...data, certificates: [...(data.certificates || []), certificate] }
+    onChange(updated)
+    setCertificate({ title: '', issuer: '', date: '', image: '', link: '' })
+  }
+
+  function addEvent() {
+    if (!eventItem.title) return alert('Event title required')
+    const updated = { ...data, events: [...(data.events || []), eventItem] }
+    onChange(updated)
+    setEventItem({ title: '', date: '', description: '' })
+  }
+
+  function addSkill() {
+    if (!skill.name) return alert('Skill name required')
+    const updated = { ...data, skills: [...(data.skills || []), skill] }
+    onChange(updated)
+    setSkill({ name: '', level: '80' })
+  }
+
+  function addHobby() {
+    if (!hobbyInput.trim()) return alert('Hobby cannot be empty')
+    const updated = { ...data, hobbies: [...(data.hobbies || []), hobbyInput.trim().toLowerCase()] }
+    onChange(updated)
+    setHobbyInput('')
+  }
+
+  function addLanguage() {
+    if (!language.name) return alert('Language name required')
+    const updated = { ...data, languages: [...(data.languages || []), language] }
+    onChange(updated)
+    setLanguage({ name: '', level: 'Fluent' })
+  }
+
+  // Remove handlers
+  function removeItem(key, index) {
+    const list = [...(data[key] || [])]
+    list.splice(index, 1)
+    onChange({ ...data, [key]: list })
+  }
+
+  function clearAll() {
+    if (!confirm('Clear all custom portfolio data? This will restore a blank template.')) return
+    onChange({
+      profile: { name: '', title: '', headline: '', bio: '', email: '', location: '', availability: '', education: '', experienceNotes: '', image: '', experienceYears: '' },
+      projects: [],
+      works: [],
+      certificates: [],
+      events: [],
+      skills: [],
+      hobbies: [],
+      languages: [],
+      social: { github: '', linkedin: '', instagram: '', x: '' }
+    })
+  }
+
+  function restoreDefaults() {
+    if (!confirm('Are you sure you want to restore default data for KWIZERA ZAIDI? Your unsaved local changes will be lost.')) return
+    localStorage.removeItem('portfolio-data')
+    window.location.reload()
+  }
+
+  // Import / Export
+  function exportJSON() {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'portfolio-data.json'
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    URL.revokeObjectURL(url)
+  }
+
+  function importJSON(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      try {
+        const json = JSON.parse(reader.result)
+        onChange(json)
+        alert('Data imported successfully!')
+      } catch (err) {
+        alert('Invalid JSON file. Please check format.')
+      }
+    }
+    reader.readAsText(file)
+  }
+
+  return (
+    <div className="admin-panel">
+      <div className="admin-header">
+        <div>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800 }}>Admin Portfolio Editor</h2>
+          <p className="muted" style={{ fontSize: '0.85rem' }}>Changes are instantly saved to LocalStorage for preview.</p>
+        </div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }} onClick={restoreDefaults}>
+            Reset Defaults
+          </button>
+          <button className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }} onClick={onClose}>
+            Finish Editing
+          </button>
+        </div>
+      </div>
+
+      <div className="admin-grid">
+        
+        {/* Profile Details */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Profile Info</h3>
+          <div className="form-group">
+            <input className="form-control" placeholder="Full Name" value={data.profile?.name || ''} onChange={(e) => updateProfile('name', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Job Title (e.g. Full Stack Developer)" value={data.profile?.title || ''} onChange={(e) => updateProfile('title', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Headline / Short Intro" value={data.profile?.headline || ''} onChange={(e) => updateProfile('headline', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Years of Experience (e.g. 2+)" value={data.profile?.experienceYears || ''} onChange={(e) => updateProfile('experienceYears', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <textarea className="form-control" style={{ minHeight: '80px' }} placeholder="Detailed Biography" value={data.profile?.bio || ''} onChange={(e) => updateProfile('bio', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Education (e.g. University of Rwanda...)" value={data.profile?.education || ''} onChange={(e) => updateProfile('education', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Experience Focus / Quick Skills Summary" value={data.profile?.experienceNotes || ''} onChange={(e) => updateProfile('experienceNotes', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Email Address" value={data.profile?.email || ''} onChange={(e) => updateProfile('email', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Location (e.g. Kigali, Rwanda)" value={data.profile?.location || ''} onChange={(e) => updateProfile('location', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Availability Status" value={data.profile?.availability || ''} onChange={(e) => updateProfile('availability', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Upload Profile Image</label>
+            <input type="file" className="form-control" accept="image/*" onChange={handleProfileImage} />
+          </div>
+        </section>
+
+        {/* Social Links */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Social Accounts</h3>
+          <div className="form-group">
+            <input className="form-control" placeholder="GitHub Profile Link" value={data.social?.github || ''} onChange={(e) => updateSocial('github', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="LinkedIn Profile Link" value={data.social?.linkedin || ''} onChange={(e) => updateSocial('linkedin', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="X / Twitter Link" value={data.social?.x || ''} onChange={(e) => updateSocial('x', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Instagram Link" value={data.social?.instagram || ''} onChange={(e) => updateSocial('instagram', e.target.value)} />
+          </div>
+        </section>
+
+        {/* Skills & Proficiency */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Manage Skills</h3>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <input className="form-control" placeholder="Skill Name" value={skill.name} onChange={(e) => setSkill({ ...skill, name: e.target.value })} />
+            <input className="form-control" type="number" min="0" max="100" style={{ width: '80px' }} placeholder="%" value={skill.level} onChange={(e) => setSkill({ ...skill, level: e.target.value })} />
+            <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }} onClick={addSkill}>Add</button>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '200px', overflowY: 'auto', marginTop: '0.5rem' }}>
+            {data.skills && data.skills.map((s, idx) => (
+              <div key={idx} className="admin-list-item">
+                <span>{s.name} ({s.level}%)</span>
+                <button className="admin-delete-btn" onClick={() => removeItem('skills', idx)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Hobbies & Languages */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Hobbies & Languages</h3>
+          
+          {/* Hobbies sub-panel */}
+          <div style={{ borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1rem', marginBottom: '1rem' }}>
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Add Hobby</label>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <input className="form-control" placeholder="e.g. coding" value={hobbyInput} onChange={(e) => setHobbyInput(e.target.value)} />
+              <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }} onClick={addHobby}>Add</button>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.5rem' }}>
+              {data.hobbies && data.hobbies.map((h, idx) => (
+                <div key={idx} style={{ background: 'var(--bg-tertiary)', borderRadius: '4px', padding: '0.2rem 0.5rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <span>{h}</span>
+                  <span style={{ cursor: 'pointer', color: '#ef4444', fontWeight: 'bold' }} onClick={() => removeItem('hobbies', idx)}>×</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Languages sub-panel */}
+          <div>
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Add Language</label>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <input className="form-control" placeholder="Language" value={language.name} onChange={(e) => setLanguage({ ...language, name: e.target.value })} />
+              <input className="form-control" placeholder="Level" value={language.level} onChange={(e) => setLanguage({ ...language, level: e.target.value })} />
+              <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }} onClick={addLanguage}>Add</button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: '0.5rem', maxHeight: '120px', overflowY: 'auto' }}>
+              {data.languages && data.languages.map((l, idx) => (
+                <div key={idx} className="admin-list-item">
+                  <span>{l.name} - {l.level}</span>
+                  <button className="admin-delete-btn" onClick={() => removeItem('languages', idx)}>Delete</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Add Project Card */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Add Project Item</h3>
+          <div className="form-group">
+            <input className="form-control" placeholder="Project Title" value={project.title} onChange={(e) => setProject({ ...project, title: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Project Link / GitHub URL" value={project.link} onChange={(e) => setProject({ ...project, link: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Tags / Tech Stack (e.g. React, Flask)" value={project.tags} onChange={(e) => setProject({ ...project, tags: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Short Description" value={project.description} onChange={(e) => setProject({ ...project, description: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Project Screenshot Image</label>
+            <input type="file" className="form-control" accept="image/*" onChange={handleProjectImage} />
+          </div>
+          <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addProject}>Add Project</button>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '120px', overflowY: 'auto', marginTop: '0.5rem' }}>
+            {data.projects && data.projects.map((p, idx) => (
+              <div key={idx} className="admin-list-item">
+                <span>{p.title}</span>
+                <button className="admin-delete-btn" onClick={() => removeItem('projects', idx)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Add Work Card */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Add Work / Experience Item</h3>
+          <div className="form-group">
+            <input className="form-control" placeholder="Job/Work Title (e.g. Programming Instructor)" value={work.title} onChange={(e) => setWork({ ...work, title: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Work Link" value={work.link} onChange={(e) => setWork({ ...work, link: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Tags (e.g. Web Dev, Mentorship)" value={work.tags} onChange={(e) => setWork({ ...work, tags: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Work Description / Duties" value={work.description} onChange={(e) => setWork({ ...work, description: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Experience Cover Image</label>
+            <input type="file" className="form-control" accept="image/*" onChange={handleWorkImage} />
+          </div>
+          <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addWork}>Add Work</button>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '120px', overflowY: 'auto', marginTop: '0.5rem' }}>
+            {data.works && data.works.map((w, idx) => (
+              <div key={idx} className="admin-list-item">
+                <span>{w.title}</span>
+                <button className="admin-delete-btn" onClick={() => removeItem('works', idx)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Add Certificate Card */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Add Certificate</h3>
+          <div className="form-group">
+            <input className="form-control" placeholder="Certificate Title" value={certificate.title} onChange={(e) => setCertificate({ ...certificate, title: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Issuer (e.g. University of Rwanda)" value={certificate.issuer} onChange={(e) => setCertificate({ ...certificate, issuer: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Year / Date" value={certificate.date} onChange={(e) => setCertificate({ ...certificate, date: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Verification Link" value={certificate.link} onChange={(e) => setCertificate({ ...certificate, link: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Certificate Image</label>
+            <input type="file" className="form-control" accept="image/*" onChange={handleCertificateImage} />
+          </div>
+          <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addCertificate}>Add Certificate</button>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '120px', overflowY: 'auto', marginTop: '0.5rem' }}>
+            {data.certificates && data.certificates.map((c, idx) => (
+              <div key={idx} className="admin-list-item">
+                <span>{c.title}</span>
+                <button className="admin-delete-btn" onClick={() => removeItem('certificates', idx)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Add Event Card */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Add Activity / Event</h3>
+          <div className="form-group">
+            <input className="form-control" placeholder="Event Title" value={eventItem.title} onChange={(e) => setEventItem({ ...eventItem, title: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Date" value={eventItem.date} onChange={(e) => setEventItem({ ...eventItem, date: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Event Description" value={eventItem.description} onChange={(e) => setEventItem({ ...eventItem, description: e.target.value })} />
+          </div>
+          <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addEvent}>Add Event</button>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '120px', overflowY: 'auto', marginTop: '0.5rem' }}>
+            {data.events && data.events.map((ev, idx) => (
+              <div key={idx} className="admin-list-item">
+                <span>{ev.title}</span>
+                <button className="admin-delete-btn" onClick={() => removeItem('events', idx)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* JSON Sync Card */}
+        <section className="admin-card" style={{ gridColumn: 'span 2' }}>
+          <h3 className="admin-card-title">Deploy & Data Sync</h3>
+          <p className="muted" style={{ fontSize: '0.9rem' }}>
+            Since there is <strong>no database</strong>, any modifications you make here are saved to your current browser's <code>localStorage</code>.
+            To make these changes permanent and visible to everyone when deployed, click the button below to download the updated JSON data, and commit it to your repository.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+            <button className="btn btn-primary" onClick={exportJSON}>
+              Download Data Config (JSON)
+            </button>
+            <div className="form-group" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+              <span className="muted" style={{ fontSize: '0.85rem' }}>Import Config:</span>
+              <input type="file" accept="application/json" onChange={importJSON} style={{ width: '200px' }} />
+            </div>
+            <button className="btn btn-secondary" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: 'rgb(239, 68, 68)', borderColor: 'rgba(239, 68, 68, 0.2)' }} onClick={clearAll}>
+              Clear All Data
+            </button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  )
+}
