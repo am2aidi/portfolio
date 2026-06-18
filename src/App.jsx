@@ -6,86 +6,119 @@ const STORAGE_KEY = 'portfolio-data'
 
 const defaultData = {
   profile: {
-    name: 'KWIZERA ZAIDI',
+    name: 'Kwizera Zaidi',
     title: 'Full Stack Developer',
-    headline: 'Information Systems Graduate & AI Enthusiast',
-    bio: 'I am a passionate Full Stack Developer who graduated in Information Systems from the University of Rwanda. I specialize in building robust web applications using Python, Java, Flask, React, and MySQL. I love leveraging AI technologies to write cleaner, faster code, and I enjoy training assistants to optimize development. I am also dedicated to mentorship, having taught programming concepts to peers and aspiring developers.',
-    email: 'kwizerazaidi@gmail.com',
+    headline: 'Information Systems Graduate & Tech Instructor',
+    bio: 'I am Kwizera Zaidi, a motivated and hardworking Full Stack Developer with a strong foundation in Computer Science, Mathematics, and Economics. Graduated in Information Systems from the University of Rwanda, I specialize in web database architectures, programming fundamentals, and building optimized, AI-powered applications. I am deeply interested in teaching coding and developing scalable platforms.',
+    email: 'zaidikwizera@gmail.com',
+    phone: '0785283267',
+    address: 'Kigali, Rwanda',
+    dob: 'October 2, 2002',
+    pob: 'Rukomo',
+    gender: 'Male',
+    nationality: 'Rwandan',
+    maritalStatus: 'Single',
     location: 'Kigali, Rwanda',
-    availability: 'Open to Opportunities',
+    availability: 'Open to Work',
     education: 'University of Rwanda (Information Systems)',
-    experienceNotes: 'Full Stack Web Development, Programming Instructor, AI Integration & Model Fine-Tuning.',
-    image: '',
+    experienceNotes: 'Software development, Teaching programming fundamentals, and AI integration.',
+    image: '/profile.jpeg',
+    cv: '',
     experienceYears: '2+'
   },
   skills: [
-    { name: 'React.js', level: '90' },
-    { name: 'Python', level: '85' },
-    { name: 'Flask Framework', level: '85' },
-    { name: 'Java', level: '78' },
-    { name: 'MySQL / Database Design', level: '82' },
+    { name: 'Computer Science & Software Development', level: '88' },
+    { name: 'Python & Flask Framework', level: '85' },
+    { name: 'React.js & Frontend Architectures', level: '85' },
+    { name: 'Java Programming', level: '78' },
+    { name: 'MySQL & Database Design', level: '82' },
+    { name: 'Programming Fundamentals', level: '90' },
     { name: 'HTML5 & CSS3 (Vanilla / Modern)', level: '92' },
-    { name: 'AI Integration & Fine-Tuning', level: '75' }
+    { name: 'Economics & Quantitative Math', level: '80' },
+    { name: 'AI Workflows & Prompt Engineering', level: '75' }
   ],
   projects: [
     {
-      title: 'E-Commerce Platform with Flask & React',
-      description: 'A full-stack online shopping application featuring interactive client views in React, a secure Flask API backend, and MySQL database configuration.',
-      link: 'https://github.com/am2aidi',
+      title: 'Hura App',
+      description: 'A platform designed for quick localized services and ride tracking. It integrates React frontend components with real-time feedback elements.',
+      link: 'https://huraapp.vercel.app/',
       image: '',
-      tags: 'React, Flask, MySQL, Python'
+      tags: 'React, Vite, CSS, APIs'
     },
     {
-      title: 'Information Systems Attendance Tracker',
-      description: 'A student registration and attendance validation system built during studies at the University of Rwanda, integrating automated reporting.',
-      link: 'https://github.com/am2aidi',
+      title: 'Streamfy Media Aggregator',
+      description: 'A modern media streaming platform showing playlist tracks and smooth playback features, custom aggregate filters, and slick audio/video views.',
+      link: 'https://streamfyappmsm.vercel.app/',
       image: '',
-      tags: 'Java, MySQL, Software Engineering'
+      tags: 'React, Media Player, CSS Grid'
+    },
+    {
+      title: 'Simulation Queue Sample',
+      description: 'An interactive queue and system modeling sample web app designed to simulate server loads, network data routing, and performance metrics.',
+      link: 'https://simulation-sample.vercel.app/',
+      image: '',
+      tags: 'JavaScript, Simulation, Web Canvas'
+    },
+    {
+      title: 'AmaliTech Idempotency Gateway',
+      description: 'A gateway utility demonstration protecting critical endpoints from duplicate API requests, facilitating safe retries for payment or transactional actions.',
+      link: 'https://amalitech-idempotency-gateway.vercel.app/',
+      image: '',
+      tags: 'Vercel, API Gateway, Node.js, Security'
     }
   ],
   works: [
     {
-      title: 'Programming Mentor & Tutor',
-      link: 'https://github.com/am2aidi',
+      title: 'Waiter at Nakka',
+      link: '#',
       image: '',
-      description: 'Taught coding fundamentals, logic flow, and basic databases (MySQL, Python, HTML/CSS) to fellow university peers and junior students.',
-      tags: 'Teaching, Mentorship, Web Dev'
+      description: 'Acquired professional communications skills, teamwork capabilities, customer service, and structured problem solving in a fast-paced team environment.',
+      tags: 'Oct 2022 – May 2023, Customer Service'
     },
     {
-      title: 'AI Workflow Integration Engineer',
+      title: 'Programming Instructor & Mentor',
       link: 'https://github.com/am2aidi',
       image: '',
-      description: 'Built productivity workflows incorporating AI models. Actively experimented with training and fine-tuning prompt-based setups to optimize development cycles.',
-      tags: 'AI, LLMs, Automation'
+      description: 'Taught coding basics (HTML/CSS, Python, logic flows) to peers and junior students in the Department of ICT, Faculty of Information Systems.',
+      tags: 'University of Rwanda, Mentorship'
     }
   ],
-  certificates: [
+  educationList: [
     {
-      title: 'Bachelor of Science in Information Systems',
-      issuer: 'University of Rwanda',
-      date: '2025',
-      image: '',
-      link: ''
-    }
-  ],
-  events: [
+      level: 'University of Rwanda',
+      institution: 'Department of ICT, Faculty of Information Systems',
+      date: 'Jun 2023 – Present',
+      details: 'Currently studying Information Systems. Gaining advanced training in web databases, quantitative math, systems analysis, and coding frameworks.'
+    },
     {
-      title: 'University Technical Exhibition',
-      date: '2025',
-      description: 'Showcased student-led web database applications and presented Flask-React framework integration strategies to local tech firms.'
+      level: 'A2 (Advanced Level)',
+      institution: 'G.S. APAPEC MURAMBI',
+      date: 'Jan 2019 – Aug 2022',
+      details: 'Program: MCE (Mathematics, Economics, and Computer Science). Acquired strong foundations in programming fundamentals, quantitative systems, and basic software development.'
+    },
+    {
+      level: 'O Level (Ordinary Level)',
+      institution: 'GS KABUGA CATHOLIC',
+      date: 'Jan 2016 – Nov 2018',
+      details: 'Studied general sciences, fundamentals of math, and introductory computing concepts.'
     }
   ],
-  hobbies: ['music', 'reading', 'movie', 'praying and reading qoran', 'traveling', 'coding'],
+  references: [
+    {
+      name: 'NSHUTIYIMANA Benit Arsene',
+      phone: '+250799347619',
+      email: 'benitarsene.y@gmail.com'
+    }
+  ],
+  hobbies: ['traveling', 'reading', 'blogging', 'movies and music', 'reading quran', 'sports'],
   languages: [
     { name: 'English', level: 'Fluent' },
     { name: 'Kinyarwanda', level: 'Native' },
-    { name: 'French', level: 'Professional' },
-    { name: 'Swahili', level: 'Conversational' },
-    { name: 'Arabic', level: 'Basic (Reading Qoran)' }
+    { name: 'Luganda', level: 'Conversational' }
   ],
   social: {
     github: 'https://github.com/am2aidi',
-    linkedin: 'https://linkedin.com/in/am2aidi',
+    linkedin: 'https://linkedin.com/in/kwizera-zaidi',
     instagram: '',
     x: ''
   }
@@ -97,8 +130,8 @@ export default function App() {
   const [showPasscodeModal, setShowPasscodeModal] = useState(false)
   const [passcodeInput, setPasscodeInput] = useState('')
   const [passcodeError, setPasscodeError] = useState('')
-  const [theme, setTheme] = useState('dark') // Defaulting to sleek dark mode
-  const [activeTab, setActiveTab] = useState('all') // 'all', 'projects', 'works'
+  const [theme, setTheme] = useState('dark')
+  const [activeTab, setActiveTab] = useState('all')
 
   // Load from LocalStorage
   useEffect(() => {
@@ -148,7 +181,6 @@ export default function App() {
 
   function verifyPasscode(e) {
     e.preventDefault()
-    // Simple passcode: "zaidi" or "admin"
     const cleaned = passcodeInput.trim().toLowerCase()
     if (cleaned === 'zaidi' || cleaned === 'admin') {
       setShowPasscodeModal(false)
@@ -158,7 +190,6 @@ export default function App() {
     }
   }
 
-  // Filter projects/works based on tabs
   const filteredItems = (() => {
     const projList = (data.projects || []).map(p => ({ ...p, type: 'project' }))
     const workList = (data.works || []).map(w => ({ ...w, type: 'work' }))
@@ -171,7 +202,7 @@ export default function App() {
   return (
     <div className="app">
       {/* Navigation Header */}
-      <nav className="navbar">
+      <nav className="navbar no-print">
         <div className="navbar-inner">
           <a href="#" className="logo">
             {data.profile.name.split(' ')[0]}.
@@ -206,7 +237,7 @@ export default function App() {
 
       {/* Admin Panel Render */}
       {showAdmin && (
-        <div className="admin-section-container">
+        <div className="admin-section-container no-print">
           <AdminPanel data={data} onChange={handleUpdate} onClose={() => setShowAdmin(false)} />
         </div>
       )}
@@ -215,20 +246,28 @@ export default function App() {
       <header className="hero" id="home">
         <div className="hero-inner">
           <div className="hero-content">
-            <span className="badge">{data.profile.headline}</span>
+            <span className="badge no-print">{data.profile.headline}</span>
             <h1 className="hero-title">
               Hi, I'm <span>{data.profile.name}</span>
             </h1>
             <p className="hero-subtitle">{data.profile.title}</p>
             <p className="hero-bio">{data.profile.bio}</p>
             
-            <div className="hero-buttons">
+            <div className="hero-buttons no-print">
               <a href="#projects" className="btn btn-primary">View My Work</a>
-              <a href="#contact" className="btn btn-secondary">Get in Touch</a>
+              {data.profile.cv ? (
+                <a href={data.profile.cv} download={`${data.profile.name.replace(' ', '_')}_CV.pdf`} className="btn btn-secondary">
+                  Download CV 📥
+                </a>
+              ) : (
+                <button className="btn btn-secondary" onClick={() => window.print()}>
+                  Print Resume 📄
+                </button>
+              )}
             </div>
 
             {/* Social Icons */}
-            <div className="social-links">
+            <div className="social-links no-print">
               {data.social.github && (
                 <a className="social-icon" href={data.social.github} target="_blank" rel="noreferrer" title="GitHub">
                   <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -239,23 +278,13 @@ export default function App() {
                   <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
               )}
-              {data.social.x && (
-                <a className="social-icon" href={data.social.x} target="_blank" rel="noreferrer" title="X / Twitter">
-                  <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-              )}
-              {data.social.instagram && (
-                <a className="social-icon" href={data.social.instagram} target="_blank" rel="noreferrer" title="Instagram">
-                  <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
-              )}
             </div>
           </div>
 
           {/* Hero Visual Avatar */}
           <div className="hero-visual">
             <div className="avatar-wrapper">
-              <div className="avatar-bg-glow"></div>
+              <div className="avatar-bg-glow no-print"></div>
               <div className="avatar-frame">
                 {data.profile.image ? (
                   <img src={data.profile.image} alt={data.profile.name} className="avatar-image" />
@@ -275,11 +304,10 @@ export default function App() {
                     fontWeight: 800
                   }}>
                     {data.profile.name.split(' ').map(n => n[0]).join('')}
-                    <span style={{ fontSize: '0.8rem', fontWeight: 500, marginTop: '8px', opacity: 0.7 }}>No photo uploaded</span>
                   </div>
                 )}
               </div>
-              <div className="experience-badge">
+              <div className="experience-badge no-print">
                 <div className="experience-number">{data.profile.experienceYears}</div>
                 <div className="experience-text">Years Exp.</div>
               </div>
@@ -294,7 +322,7 @@ export default function App() {
         {/* About Section */}
         <section className="section" id="about">
           <div className="section-header">
-            <span className="section-tag">Biography</span>
+            <span className="section-tag no-print">Biography</span>
             <h2 className="section-title">About Me</h2>
           </div>
 
@@ -304,18 +332,18 @@ export default function App() {
                 {data.profile.bio}
               </p>
 
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginTop: '1rem', color: 'var(--accent-secondary)' }}>
-                Hobbies & Hobbies
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginTop: '1.5rem', color: 'var(--accent-secondary)' }}>
+                Hobbies & Interests
               </h3>
               <div className="badge-container">
                 {data.hobbies && data.hobbies.map((hobby, i) => (
                   <span key={i} className="hobby-badge">
-                    ⚡ {hobby}
+                    ✨ {hobby}
                   </span>
                 ))}
               </div>
 
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginTop: '1rem', color: 'var(--accent-primary)' }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginTop: '1.5rem', color: 'var(--accent-primary)' }}>
                 Languages Spoken
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
@@ -334,31 +362,63 @@ export default function App() {
                 <span className="info-value">{data.profile.name}</span>
               </div>
               <div className="info-card">
-                <span className="info-label">Education</span>
-                <span className="info-value">{data.profile.education}</span>
+                <span className="info-label">Email</span>
+                <span className="info-value" style={{ fontSize: '0.9rem', wordBreak: 'break-all' }}>{data.profile.email}</span>
               </div>
               <div className="info-card">
-                <span className="info-label">Location</span>
-                <span className="info-value">{data.profile.location}</span>
+                <span className="info-label">Phone</span>
+                <span className="info-value">{data.profile.phone}</span>
               </div>
               <div className="info-card">
-                <span className="info-label">Availability</span>
-                <span className="info-value">{data.profile.availability}</span>
+                <span className="info-label">Gender / Status</span>
+                <span className="info-value" style={{ fontSize: '0.95rem' }}>{data.profile.gender} • {data.profile.maritalStatus}</span>
+              </div>
+              <div className="info-card">
+                <span className="info-label">Date of Birth</span>
+                <span className="info-value" style={{ fontSize: '0.95rem' }}>{data.profile.dob}</span>
+              </div>
+              <div className="info-card">
+                <span className="info-label">Birth Place / Nation</span>
+                <span className="info-value" style={{ fontSize: '0.95rem' }}>{data.profile.pob} • {data.profile.nationality}</span>
               </div>
               <div className="info-card" style={{ gridColumn: 'span 2' }}>
-                <span className="info-label">Experience Focus</span>
+                <span className="info-label">Primary Education Focus</span>
                 <span className="info-value" style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
-                  {data.profile.experienceNotes}
+                  {data.profile.education}
                 </span>
               </div>
             </div>
           </div>
         </section>
 
+        {/* Education History Section */}
+        {data.educationList && data.educationList.length > 0 && (
+          <section className="section" id="education">
+            <div className="section-header">
+              <span className="section-tag no-print">Academic background</span>
+              <h2 className="section-title">Education History</h2>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {data.educationList.map((edu, i) => (
+                <div key={i} className="glass-card" style={{ padding: '1.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <h3 className="card-title" style={{ margin: 0 }}>{edu.level}</h3>
+                    <span className="lang-level" style={{ padding: '0.3rem 0.6rem' }}>{edu.date}</span>
+                  </div>
+                  <h4 style={{ color: 'var(--accent-secondary)', fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.75rem' }}>
+                    {edu.institution}
+                  </h4>
+                  <p className="card-description" style={{ fontSize: '0.9rem' }}>{edu.details}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Skills Section */}
         <section className="section" id="skills">
           <div className="section-header">
-            <span className="section-tag">Proficiency</span>
+            <span className="section-tag no-print">Proficiency</span>
             <h2 className="section-title">Skills & Technologies</h2>
           </div>
 
@@ -380,11 +440,11 @@ export default function App() {
         {/* Projects / Works Section */}
         <section className="section" id="projects">
           <div className="section-header">
-            <span className="section-tag">My Work</span>
+            <span className="section-tag no-print">My Work</span>
             <h2 className="section-title">Featured Portfolio</h2>
           </div>
 
-          <div className="projects-tabs">
+          <div className="projects-tabs no-print">
             <button 
               className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
               onClick={() => setActiveTab('all')}
@@ -401,7 +461,7 @@ export default function App() {
               className={`tab-btn ${activeTab === 'works' ? 'active' : ''}`}
               onClick={() => setActiveTab('works')}
             >
-              Teaching & Mentorship
+              Professional Experience
             </button>
           </div>
 
@@ -418,51 +478,20 @@ export default function App() {
           </div>
         </section>
 
-        {/* Certificates Section */}
-        {data.certificates && data.certificates.length > 0 && (
-          <section className="section" id="certificates">
+        {/* References Section */}
+        {data.references && data.references.length > 0 && (
+          <section className="section" id="references">
             <div className="section-header">
-              <span className="section-tag">Credentials</span>
-              <h2 className="section-title">Certifications</h2>
+              <span className="section-tag no-print">Verification</span>
+              <h2 className="section-title">Professional References</h2>
             </div>
-            <div className="grid-layout">
-              {data.certificates.map((cert, i) => (
-                <div className="glass-card" key={i}>
-                  {cert.image && (
-                    <div className="card-img-wrapper">
-                      <img src={cert.image} alt={cert.title} className="card-image" />
-                    </div>
-                  )}
-                  <div className="card-body">
-                    <span className="info-label">{cert.issuer} • {cert.date}</span>
-                    <h3 className="card-title">{cert.title}</h3>
-                    {cert.link && (
-                      <a href={cert.link} className="btn-link" target="_blank" rel="noreferrer" style={{ marginTop: 'auto' }}>
-                        Verify Credential
-                        <svg viewBox="0 0 24 24"><path d="M5 3c-1.093 0-2 .907-2 2v14c0 1.093.907 2 2 2h14c1.093 0 2-.907 2-2v-7h-2v7H5V5h7V3H5zm9 0v2h3.586l-9.293 9.293 1.414 1.414L19 6.414V10h2V3h-7z"/></svg>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Events Section */}
-        {data.events && data.events.length > 0 && (
-          <section className="section" id="events">
-            <div className="section-header">
-              <span className="section-tag">Activities</span>
-              <h2 className="section-title">Community & Events</h2>
-            </div>
-            <div className="grid-layout">
-              {data.events.map((evt, i) => (
-                <div className="glass-card" key={i}>
-                  <div className="card-body">
-                    <span className="info-label">{evt.date}</span>
-                    <h3 className="card-title">{evt.title}</h3>
-                    <p className="card-description">{evt.description}</p>
+            <div className="grid-layout" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+              {data.references.map((ref, i) => (
+                <div key={i} className="glass-card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <h3 className="card-title" style={{ fontSize: '1.2rem' }}>{ref.name}</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    <span>📞 {ref.phone}</span>
+                    <span>✉️ <a href={`mailto:${ref.email}`} style={{ color: 'var(--accent-primary)' }}>{ref.email}</a></span>
                   </div>
                 </div>
               ))}
@@ -471,7 +500,7 @@ export default function App() {
         )}
 
         {/* Contact Section */}
-        <section className="section" id="contact">
+        <section className="section no-print" id="contact">
           <div className="section-header">
             <span className="section-tag">Let's Connect</span>
             <h2 className="section-title">Contact Me</h2>
@@ -492,27 +521,26 @@ export default function App() {
               </div>
 
               <div className="contact-item">
+                <div className="contact-icon">📞</div>
+                <div className="contact-item-body">
+                  <span className="contact-item-title">Call Me</span>
+                  <a href={`tel:${data.profile.phone}`} className="contact-item-value">{data.profile.phone}</a>
+                </div>
+              </div>
+
+              <div className="contact-item">
                 <div className="contact-icon">📍</div>
                 <div className="contact-item-body">
                   <span className="contact-item-title">Location</span>
                   <span className="contact-item-value">{data.profile.location}</span>
                 </div>
               </div>
-
-              <div className="contact-item">
-                <div className="contact-icon">💼</div>
-                <div className="contact-item-body">
-                  <span className="contact-item-title">Availability</span>
-                  <span className="contact-item-value">{data.profile.availability}</span>
-                </div>
-              </div>
             </div>
 
-            {/* Simulated contact form */}
             <form className="contact-form" onSubmit={(e) => {
               e.preventDefault();
-              alert(`Thanks for reaching out! In a fully deployed setup, this form can send emails directly to ${data.profile.email}. Directing you to your email client...`);
-              window.location.href = `mailto:${data.profile.email}?subject=Portfolio Enquiry&body=Hi ${data.profile.name},%0A%0A`;
+              alert(`Thanks for reaching out! Directing you to your email client to message ${data.profile.email}...`);
+              window.location.href = `mailto:${data.profile.email}?subject=Portfolio Inquiry&body=Hi ${data.profile.name},%0A%0A`;
             }}>
               <div className="form-row">
                 <div className="form-group">
@@ -585,6 +613,57 @@ export default function App() {
           </form>
         </div>
       )}
+
+      {/* CSS Print Rules */}
+      <style>{`
+        @media print {
+          body {
+            background: #ffffff !important;
+            color: #000000 !important;
+          }
+          .no-print {
+            display: none !important;
+          }
+          .hero {
+            padding: 2rem 0 !important;
+          }
+          .hero-inner {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            text-align: left !important;
+          }
+          .avatar-wrapper {
+            width: 150px !important;
+            height: 150px !important;
+          }
+          .avatar-image {
+            border-radius: 50% !important;
+          }
+          .section {
+            padding: 1.5rem 0 !important;
+            page-break-inside: avoid;
+          }
+          .glass-card, .info-card, .language-item, .skill-card {
+            background: #ffffff !important;
+            border: 1px solid #cccccc !important;
+            box-shadow: none !important;
+            color: #000000 !important;
+          }
+          .skill-bar-outer {
+            border: 1px solid #000000 !important;
+            background: #eeeeee !important;
+          }
+          .skill-bar-inner {
+            background: #000000 !important;
+          }
+          a {
+            color: #000000 !important;
+            text-decoration: underline !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

@@ -8,6 +8,8 @@ export default function AdminPanel({ data, onChange, onClose }) {
   const [skill, setSkill] = useState({ name: '', level: '80' })
   const [hobbyInput, setHobbyInput] = useState('')
   const [language, setLanguage] = useState({ name: '', level: 'Fluent' })
+  const [edu, setEdu] = useState({ level: '', institution: '', date: '', details: '' })
+  const [refItem, setRefItem] = useState({ name: '', phone: '', email: '' })
 
   function toBase64(file) {
     return new Promise((res, rej) => {
@@ -23,6 +25,13 @@ export default function AdminPanel({ data, onChange, onClose }) {
     if (!file) return
     const dataUrl = await toBase64(file)
     updateProfile('image', dataUrl)
+  }
+
+  async function handleCVUpload(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const dataUrl = await toBase64(file)
+    updateProfile('cv', dataUrl)
   }
 
   async function handleProjectImage(e) {
@@ -68,6 +77,22 @@ export default function AdminPanel({ data, onChange, onClose }) {
     const updated = { ...data, projects: [...(data.projects || []), project] }
     onChange(updated)
     setProject({ title: '', description: '', link: '', image: '', tags: '' })
+  }
+
+  // Add Education
+  function addEducation() {
+    if (!edu.level || !edu.institution) return alert('Level and Institution are required')
+    const updated = { ...data, educationList: [...(data.educationList || []), edu] }
+    onChange(updated)
+    setEdu({ level: '', institution: '', date: '', details: '' })
+  }
+
+  // Add Reference
+  function addReference() {
+    if (!refItem.name) return alert('Reference name required')
+    const updated = { ...data, references: [...(data.references || []), refItem] }
+    onChange(updated)
+    setRefItem({ name: '', phone: '', email: '' })
   }
 
   function addWork() {
@@ -122,9 +147,11 @@ export default function AdminPanel({ data, onChange, onClose }) {
   function clearAll() {
     if (!confirm('Clear all custom portfolio data? This will restore a blank template.')) return
     onChange({
-      profile: { name: '', title: '', headline: '', bio: '', email: '', location: '', availability: '', education: '', experienceNotes: '', image: '', experienceYears: '' },
+      profile: { name: '', title: '', headline: '', bio: '', email: '', phone: '', address: '', dob: '', pob: '', gender: '', nationality: '', maritalStatus: '', location: '', availability: '', education: '', experienceNotes: '', image: '', cv: '', experienceYears: '' },
       projects: [],
       works: [],
+      educationList: [],
+      references: [],
       certificates: [],
       events: [],
       skills: [],
@@ -135,7 +162,7 @@ export default function AdminPanel({ data, onChange, onClose }) {
   }
 
   function restoreDefaults() {
-    if (!confirm('Are you sure you want to restore default data for KWIZERA ZAIDI? Your unsaved local changes will be lost.')) return
+    if (!confirm('Are you sure you want to restore default data for Kwizera Zaidi? Your unsaved local changes will be lost.')) return
     localStorage.removeItem('portfolio-data')
     window.location.reload()
   }
@@ -190,40 +217,33 @@ export default function AdminPanel({ data, onChange, onClose }) {
         
         {/* Profile Details */}
         <section className="admin-card">
-          <h3 className="admin-card-title">Profile Info</h3>
+          <h3 className="admin-card-title">Personal Details</h3>
+          <div className="form-group"><input className="form-control" placeholder="Full Name" value={data.profile?.name || ''} onChange={(e) => updateProfile('name', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Job Title (e.g. Full Stack Developer)" value={data.profile?.title || ''} onChange={(e) => updateProfile('title', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Headline / Short Intro" value={data.profile?.headline || ''} onChange={(e) => updateProfile('headline', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Years of Experience (e.g. 2+)" value={data.profile?.experienceYears || ''} onChange={(e) => updateProfile('experienceYears', e.target.value)} /></div>
+          
+          <div className="form-group"><input className="form-control" placeholder="Email Address" value={data.profile?.email || ''} onChange={(e) => updateProfile('email', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Phone Number" value={data.profile?.phone || ''} onChange={(e) => updateProfile('phone', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Physical Address" value={data.profile?.address || ''} onChange={(e) => updateProfile('address', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Date of Birth" value={data.profile?.dob || ''} onChange={(e) => updateProfile('dob', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Place of Birth" value={data.profile?.pob || ''} onChange={(e) => updateProfile('pob', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Gender" value={data.profile?.gender || ''} onChange={(e) => updateProfile('gender', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Nationality" value={data.profile?.nationality || ''} onChange={(e) => updateProfile('nationality', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Marital Status" value={data.profile?.maritalStatus || ''} onChange={(e) => updateProfile('maritalStatus', e.target.value)} /></div>
+          
+          <div className="form-group"><textarea className="form-control" style={{ minHeight: '80px' }} placeholder="Detailed Biography Summary" value={data.profile?.bio || ''} onChange={(e) => updateProfile('bio', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Availability Status (e.g. Open to Work)" value={data.profile?.availability || ''} onChange={(e) => updateProfile('availability', e.target.value)} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Primary Education Summary" value={data.profile?.education || ''} onChange={(e) => updateProfile('education', e.target.value)} /></div>
+          <div className="form-group"><textarea className="form-control" style={{ minHeight: '50px' }} placeholder="Experience Focus / Core Interests" value={data.profile?.experienceNotes || ''} onChange={(e) => updateProfile('experienceNotes', e.target.value)} /></div>
+          
           <div className="form-group">
-            <input className="form-control" placeholder="Full Name" value={data.profile?.name || ''} onChange={(e) => updateProfile('name', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Job Title (e.g. Full Stack Developer)" value={data.profile?.title || ''} onChange={(e) => updateProfile('title', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Headline / Short Intro" value={data.profile?.headline || ''} onChange={(e) => updateProfile('headline', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Years of Experience (e.g. 2+)" value={data.profile?.experienceYears || ''} onChange={(e) => updateProfile('experienceYears', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <textarea className="form-control" style={{ minHeight: '80px' }} placeholder="Detailed Biography" value={data.profile?.bio || ''} onChange={(e) => updateProfile('bio', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Education (e.g. University of Rwanda...)" value={data.profile?.education || ''} onChange={(e) => updateProfile('education', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Experience Focus / Quick Skills Summary" value={data.profile?.experienceNotes || ''} onChange={(e) => updateProfile('experienceNotes', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Email Address" value={data.profile?.email || ''} onChange={(e) => updateProfile('email', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Location (e.g. Kigali, Rwanda)" value={data.profile?.location || ''} onChange={(e) => updateProfile('location', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Availability Status" value={data.profile?.availability || ''} onChange={(e) => updateProfile('availability', e.target.value)} />
-          </div>
-          <div className="form-group">
-            <label className="form-label" style={{ fontSize: '0.8rem' }}>Upload Profile Image</label>
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Upload Profile Image (replaces public picture)</label>
             <input type="file" className="form-control" accept="image/*" onChange={handleProfileImage} />
+          </div>
+          <div className="form-group">
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Upload CV (PDF file)</label>
+            <input type="file" className="form-control" accept="application/pdf" onChange={handleCVUpload} />
           </div>
         </section>
 
@@ -241,6 +261,43 @@ export default function AdminPanel({ data, onChange, onClose }) {
           </div>
           <div className="form-group">
             <input className="form-control" placeholder="Instagram Link" value={data.social?.instagram || ''} onChange={(e) => updateSocial('instagram', e.target.value)} />
+          </div>
+        </section>
+
+        {/* Education History List */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Academic History</h3>
+          <div className="form-group"><input className="form-control" placeholder="Degree/Level (e.g. A2)" value={edu.level} onChange={(e) => setEdu({...edu, level: e.target.value})} /></div>
+          <div className="form-group"><input className="form-control" placeholder="School/Institution" value={edu.institution} onChange={(e) => setEdu({...edu, institution: e.target.value})} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Date (e.g. Jan 2019 – Aug 2022)" value={edu.date} onChange={(e) => setEdu({...edu, date: e.target.value})} /></div>
+          <div className="form-group"><textarea className="form-control" placeholder="Programs, achievements, or skills acquired" value={edu.details} onChange={(e) => setEdu({...edu, details: e.target.value})} /></div>
+          <button className="btn btn-primary" onClick={addEducation}>Add Education</button>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '180px', overflowY: 'auto', marginTop: '0.5rem' }}>
+            {data.educationList && data.educationList.map((ed, idx) => (
+              <div key={idx} className="admin-list-item">
+                <span>{ed.level} - {ed.institution.substring(0, 15)}...</span>
+                <button className="admin-delete-btn" onClick={() => removeItem('educationList', idx)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* References List */}
+        <section className="admin-card">
+          <h3 className="admin-card-title">Manage References</h3>
+          <div className="form-group"><input className="form-control" placeholder="Reference Name" value={refItem.name} onChange={(e) => setRefItem({...refItem, name: e.target.value})} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Phone Number" value={refItem.phone} onChange={(e) => setRefItem({...refItem, phone: e.target.value})} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Email Address" value={refItem.email} onChange={(e) => setRefItem({...refItem, email: e.target.value})} /></div>
+          <button className="btn btn-primary" onClick={addReference}>Add Reference</button>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '150px', overflowY: 'auto', marginTop: '0.5rem' }}>
+            {data.references && data.references.map((r, idx) => (
+              <div key={idx} className="admin-list-item">
+                <span>{r.name}</span>
+                <button className="admin-delete-btn" onClick={() => removeItem('references', idx)}>Delete</button>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -266,7 +323,6 @@ export default function AdminPanel({ data, onChange, onClose }) {
         <section className="admin-card">
           <h3 className="admin-card-title">Hobbies & Languages</h3>
           
-          {/* Hobbies sub-panel */}
           <div style={{ borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1rem', marginBottom: '1rem' }}>
             <label className="form-label" style={{ fontSize: '0.8rem' }}>Add Hobby</label>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -283,7 +339,6 @@ export default function AdminPanel({ data, onChange, onClose }) {
             </div>
           </div>
 
-          {/* Languages sub-panel */}
           <div>
             <label className="form-label" style={{ fontSize: '0.8rem' }}>Add Language</label>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -305,18 +360,10 @@ export default function AdminPanel({ data, onChange, onClose }) {
         {/* Add Project Card */}
         <section className="admin-card">
           <h3 className="admin-card-title">Add Project Item</h3>
-          <div className="form-group">
-            <input className="form-control" placeholder="Project Title" value={project.title} onChange={(e) => setProject({ ...project, title: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Project Link / GitHub URL" value={project.link} onChange={(e) => setProject({ ...project, link: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Tags / Tech Stack (e.g. React, Flask)" value={project.tags} onChange={(e) => setProject({ ...project, tags: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Short Description" value={project.description} onChange={(e) => setProject({ ...project, description: e.target.value })} />
-          </div>
+          <div className="form-group"><input className="form-control" placeholder="Project Title" value={project.title} onChange={(e) => setProject({ ...project, title: e.target.value })} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Project Link / GitHub URL" value={project.link} onChange={(e) => setProject({ ...project, link: e.target.value })} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Tags / Tech Stack (e.g. React, Flask)" value={project.tags} onChange={(e) => setProject({ ...project, tags: e.target.value })} /></div>
+          <div className="form-group"><textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Short Description" value={project.description} onChange={(e) => setProject({ ...project, description: e.target.value })} /></div>
           <div className="form-group">
             <label className="form-label" style={{ fontSize: '0.8rem' }}>Project Screenshot Image</label>
             <input type="file" className="form-control" accept="image/*" onChange={handleProjectImage} />
@@ -336,18 +383,10 @@ export default function AdminPanel({ data, onChange, onClose }) {
         {/* Add Work Card */}
         <section className="admin-card">
           <h3 className="admin-card-title">Add Work / Experience Item</h3>
-          <div className="form-group">
-            <input className="form-control" placeholder="Job/Work Title (e.g. Programming Instructor)" value={work.title} onChange={(e) => setWork({ ...work, title: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Work Link" value={work.link} onChange={(e) => setWork({ ...work, link: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Tags (e.g. Web Dev, Mentorship)" value={work.tags} onChange={(e) => setWork({ ...work, tags: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Work Description / Duties" value={work.description} onChange={(e) => setWork({ ...work, description: e.target.value })} />
-          </div>
+          <div className="form-group"><input className="form-control" placeholder="Job/Work Title" value={work.title} onChange={(e) => setWork({ ...work, title: e.target.value })} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Work Link" value={work.link} onChange={(e) => setWork({ ...work, link: e.target.value })} /></div>
+          <div className="form-group"><input className="form-control" placeholder="Tags" value={work.tags} onChange={(e) => setWork({ ...work, tags: e.target.value })} /></div>
+          <div className="form-group"><textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Work Description" value={work.description} onChange={(e) => setWork({ ...work, description: e.target.value })} /></div>
           <div className="form-group">
             <label className="form-label" style={{ fontSize: '0.8rem' }}>Experience Cover Image</label>
             <input type="file" className="form-control" accept="image/*" onChange={handleWorkImage} />
@@ -359,61 +398,6 @@ export default function AdminPanel({ data, onChange, onClose }) {
               <div key={idx} className="admin-list-item">
                 <span>{w.title}</span>
                 <button className="admin-delete-btn" onClick={() => removeItem('works', idx)}>Delete</button>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Add Certificate Card */}
-        <section className="admin-card">
-          <h3 className="admin-card-title">Add Certificate</h3>
-          <div className="form-group">
-            <input className="form-control" placeholder="Certificate Title" value={certificate.title} onChange={(e) => setCertificate({ ...certificate, title: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Issuer (e.g. University of Rwanda)" value={certificate.issuer} onChange={(e) => setCertificate({ ...certificate, issuer: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Year / Date" value={certificate.date} onChange={(e) => setCertificate({ ...certificate, date: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Verification Link" value={certificate.link} onChange={(e) => setCertificate({ ...certificate, link: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <label className="form-label" style={{ fontSize: '0.8rem' }}>Certificate Image</label>
-            <input type="file" className="form-control" accept="image/*" onChange={handleCertificateImage} />
-          </div>
-          <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addCertificate}>Add Certificate</button>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '120px', overflowY: 'auto', marginTop: '0.5rem' }}>
-            {data.certificates && data.certificates.map((c, idx) => (
-              <div key={idx} className="admin-list-item">
-                <span>{c.title}</span>
-                <button className="admin-delete-btn" onClick={() => removeItem('certificates', idx)}>Delete</button>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Add Event Card */}
-        <section className="admin-card">
-          <h3 className="admin-card-title">Add Activity / Event</h3>
-          <div className="form-group">
-            <input className="form-control" placeholder="Event Title" value={eventItem.title} onChange={(e) => setEventItem({ ...eventItem, title: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Date" value={eventItem.date} onChange={(e) => setEventItem({ ...eventItem, date: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Event Description" value={eventItem.description} onChange={(e) => setEventItem({ ...eventItem, description: e.target.value })} />
-          </div>
-          <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addEvent}>Add Event</button>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '120px', overflowY: 'auto', marginTop: '0.5rem' }}>
-            {data.events && data.events.map((ev, idx) => (
-              <div key={idx} className="admin-list-item">
-                <span>{ev.title}</span>
-                <button className="admin-delete-btn" onClick={() => removeItem('events', idx)}>Delete</button>
               </div>
             ))}
           </div>

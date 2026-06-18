@@ -1,56 +1,39 @@
-<<<<<<< HEAD
-# Portfolio (React + Vite)
+# Kwizera Zaidi Portfolio (React + Vite)
 
-A minimal React portfolio scaffold created for you.
+A modern, premium developer portfolio scaffold built with React, Vite, and custom CSS styling. Features a stunning dark/light theme, glassmorphic UI cards, micro-animations, and a password-protected local Admin Editor.
 
-Getting started
+## Features
 
-1. Install dependencies
+- **Responsive Design**: Clean layout tailored for mobile, tablet, and desktop viewports.
+- **Dark & Light Modes**: Seamless visual transitions with custom color themes.
+- **Resume Layout**: Complete biography, education records, project grids, teaching activities, and hobbies/languages.
+- **Admin Panel**: Click the **Admin** button in the top navigation bar (Passcode: `zaidi` or `admin`). Add/edit projects, works, certificates, skills, hobbies, languages, and profile pictures.
+- **Serverless / Database-free**: All inputs are saved dynamically to the browser's `localStorage`. Uploaded images and CV files are automatically compiled as base64 DataURLs.
+- **Portable Data**: Export your custom portfolio configuration as a JSON file, or import it to easily restore content across devices.
 
+## Getting Started
+
+### 1. Install Dependencies
 ```bash
 npm install
 ```
 
-2. Run the dev server
-
+### 2. Run the Development Server
 ```bash
 npm run dev
 ```
 
-3. Open the URL shown by Vite (usually http://localhost:5173)
+### 3. Build for Production
+```bash
+npm run build
+```
 
-What I created
+## How to Make Edits Permanent for Deployment
 
-- `index.html` — app entry
-- `package.json` — scripts and deps
-- `src/main.jsx` — Vite entry
-- `src/App.jsx` — main app component
-- `src/components/ProjectCard.jsx` — project card
-- `src/index.css` — basic styling
+Since there is no backend database, your modifications are saved in your browser's local storage. To lock in these changes for all site visitors when deploying to platforms like Vercel or GitHub Pages:
 
-Admin editor (local only)
-
-- Open the site and click "Open Editor" to add projects, certificates, and events. All data is saved to your browser's localStorage (no server required).
-- Image uploads are stored in localStorage as base64 data URLs — for small portfolios this works fine locally. When you create a repository, push the code and we can wire an export/import or connect a simple backend.
-
-Next steps
-
-- Replace "Your Name" and contact details in `src/App.jsx`.
-- Add your projects to the `projects` array in `src/App.jsx` or wire up a CMS.
-- Add images and more styling as desired.
-
-How to contribute content locally
-
-1. Run the dev server (see above).
-2. Click "Open Editor" in the top-right hero area.
-3. Use the forms to add projects (with image), certificates (with image/link), and events. Changes are saved immediately to the browser.
-
-Notes
-
-- This app intentionally uses no database and stores all content in localStorage. If you clear browser storage the data will be lost.
-- When you're ready to push, commit the project to a new GitHub repo and tell me — I can add an export/import JSON button or deploy to Vercel/GitHub Pages.
-
-Enjoy! 🚀
-=======
-# portfolio
->>>>>>> 1efac2347533607c19bba6ea23a37530e1f51a65
+1. Run the site locally and access the **Admin Panel** (passcode `zaidi` or `admin`).
+2. Make your edits, upload your photo (`profile.jpeg`), and configure all credentials.
+3. Click the **Download Data Config (JSON)** button in the sync section.
+4. Replace the contents of the `defaultData` object in [src/App.jsx](file:///c:/Users/zaidi/OneDrive/Desktop/potoflio/src/App.jsx) with your downloaded JSON structure.
+5. Build and commit your project changes to GitHub.
