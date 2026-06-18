@@ -30,12 +30,15 @@ const defaultData = {
     { name: 'Computer Science & Software Development', level: '88' },
     { name: 'React.js & Frontend Architectures', level: '85' },
     { name: 'Python & Flask Framework', level: '85' },
-    { name: 'Java Programming', level: '78' },
+    { name: 'NumPy & Pandas (Data Analysis)', level: '80' },
+    { name: 'Python Simulation & Math Modeling', level: '82' },
+    { name: 'Machine Learning Modeling', level: '75' },
     { name: 'MySQL & Database Design', level: '82' },
+    { name: 'Java Programming', level: '78' },
     { name: 'AI Workflows & Prompt Fine-Tuning', level: '85' },
     { name: 'Programming Fundamentals', level: '90' },
     { name: 'HTML5 & CSS3 (Vanilla / Modern)', level: '92' },
-    { name: 'Economics & Quantitative Math', level: '80' }
+    { name: 'Git & Version Control', level: '85' }
   ],
   projects: [
     {
@@ -141,6 +144,7 @@ export default function App() {
   const [passcodeError, setPasscodeError] = useState('')
   const [theme, setTheme] = useState('dark')
   const [activeTab, setActiveTab] = useState('all')
+  const [showAllSkills, setShowAllSkills] = useState(false)
 
   // Load from LocalStorage
   useEffect(() => {
@@ -207,6 +211,9 @@ export default function App() {
     return [...projList, ...workList]
   })()
 
+  // Sliced skills list
+  const visibleSkills = showAllSkills ? (data.skills || []) : (data.skills || []).slice(0, 6)
+
   return (
     <div className="app">
       {/* Navigation Header */}
@@ -235,6 +242,11 @@ export default function App() {
               </span>
             </label>
 
+            {/* Hire Me Header CTA */}
+            <a href="#contact" className="btn btn-primary no-print" style={{ padding: '0.4rem 1.1rem', fontSize: '0.85rem' }}>
+              Hire Me 💼
+            </a>
+
             {/* Admin button */}
             <button className="btn btn-secondary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }} onClick={handleAdminAccessClick}>
               {showAdmin ? 'Close Editor' : 'Admin'}
@@ -262,7 +274,8 @@ export default function App() {
             <p className="hero-bio">{data.profile.bio}</p>
             
             <div className="hero-buttons no-print">
-              <a href="#projects" className="btn btn-primary">View My Work</a>
+              <a href="#contact" className="btn btn-primary">Hire Me 💼</a>
+              <a href="#projects" className="btn btn-secondary">View My Work</a>
               {data.profile.cv ? (
                 <a href={data.profile.cv} download={`${data.profile.name.replace(' ', '_')}_CV.pdf`} className="btn btn-secondary">
                   Download CV 📥
@@ -429,7 +442,7 @@ export default function App() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {data.educationList.map((edu, i) => (
                   <div key={i} className="glass-card" style={{ padding: '2rem' }}>
-                    <div style={{ display: 'flex', justifycontent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
                       <h3 className="card-title" style={{ margin: 0 }}>{edu.level}</h3>
                       <span className="lang-level" style={{ padding: '0.3rem 0.6rem' }}>{edu.date}</span>
                     </div>
@@ -453,7 +466,7 @@ export default function App() {
             </div>
 
             <div className="skills-grid">
-              {data.skills && data.skills.map((skill, i) => (
+              {visibleSkills && visibleSkills.map((skill, i) => (
                 <div key={i} className="skill-card">
                   <div className="skill-info">
                     <span className="skill-name">{skill.name}</span>
@@ -465,6 +478,14 @@ export default function App() {
                 </div>
               ))}
             </div>
+
+            {data.skills && data.skills.length > 6 && (
+              <div style={{ textAlign: 'center', marginTop: '2.5rem' }} className="no-print">
+                <button className="btn btn-secondary" onClick={() => setShowAllSkills(s => !s)}>
+                  {showAllSkills ? 'Show Less ↑' : 'Show All Skills ↓'}
+                </button>
+              </div>
+            )}
           </div>
         </section>
 
