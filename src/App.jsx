@@ -139,15 +139,11 @@ const defaultData = {
 export default function App() {
   const [data, setData] = useState(defaultData)
   const [showAdmin, setShowAdmin] = useState(false)
-  const [showPasscodeModal, setShowPasscodeModal] = useState(false)
-  const [passcodeInput, setPasscodeInput] = useState('')
-  const [passcodeError, setPasscodeError] = useState('')
   const [theme, setTheme] = useState('dark')
   const [activeTab, setActiveTab] = useState('all')
   const [showAllSkills, setShowAllSkills] = useState(false)
-  const [isAdminBtnVisible, setIsAdminBtnVisible] = useState(false)
 
-  // Load from LocalStorage and Check URL Params
+  // Load from LocalStorage and check URL query parameters
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
@@ -167,24 +163,24 @@ export default function App() {
     setTheme(savedTheme)
     document.documentElement.setAttribute('data-theme', savedTheme)
 
-    // Secret entry 1: check URL query parameters (e.g. yoursite.com/?admin=true)
+    // Secret entry 1: check URL query parameters (e.g. yoursite.com/?admin=true or ?edit=true)
     const params = new URLSearchParams(window.location.search)
     if (params.get('admin') === 'true' || params.get('edit') === 'true') {
-      setIsAdminBtnVisible(true)
+      setShowAdmin(true)
     }
   }, [])
 
-  // Secret entry 2: keyboard shortcut Ctrl + Alt + E
+  // Secret entry 1: keyboard shortcut Ctrl + Alt + E
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'e') {
         e.preventDefault()
-        handleAdminAccessClick()
+        handleAdminAccessToggle()
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [showAdmin])
+  }, [])
 
   // Sync to LocalStorage
   useEffect(() => {
@@ -200,25 +196,8 @@ export default function App() {
     setData(prev => ({ ...prev, ...partial }))
   }
 
-  function handleAdminAccessClick() {
-    if (showAdmin) {
-      setShowAdmin(false)
-    } else {
-      setShowPasscodeModal(true)
-      setPasscodeInput('')
-      setPasscodeError('')
-    }
-  }
-
-  function verifyPasscode(e) {
-    e.preventDefault()
-    const cleaned = passcodeInput.trim().toLowerCase()
-    if (cleaned === 'zaidi' || cleaned === 'admin') {
-      setShowPasscodeModal(false)
-      setShowAdmin(true)
-    } else {
-      setPasscodeError('Incorrect passcode.')
-    }
+  function handleAdminAccessToggle() {
+    setShowAdmin(prev => !prev)
   }
 
   const handleContactSubmit = (e) => {
@@ -252,8 +231,8 @@ export default function App() {
       {/* Navigation Header */}
       <nav className="navbar no-print">
         <div className="navbar-inner container">
-          {/* Secret entry 3: Double click on logo opens admin dialog */}
-          <a href="#" className="logo" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
+          {/* Secret entry 2: Double click on logo directly toggles admin editor */}
+          <a href="#" className="logo" onDoubleClick={handleAdminAccessToggle} title="Double-click to verify admin">
             {data.profile.name.split(' ')[0]}.
           </a>
           <div className="nav-links">
@@ -280,13 +259,6 @@ export default function App() {
             <a href="#contact" className="btn btn-primary no-print" style={{ padding: '0.4rem 1.1rem', fontSize: '0.85rem' }}>
               Hire Me 💼
             </a>
-
-            {/* Admin button is hidden from public view unless query param admin=true is set */}
-            {(isAdminBtnVisible || showAdmin) && (
-              <button className="btn btn-secondary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }} onClick={handleAdminAccessClick}>
-                {showAdmin ? 'Close Editor' : 'Admin'}
-              </button>
-            )}
           </div>
         </div>
       </nav>
@@ -342,7 +314,7 @@ export default function App() {
               )}
               {data.social.instagram && (
                 <a className="social-icon" href={data.social.instagram} target="_blank" rel="noreferrer" title="Instagram">
-                  <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0 3.259-.014 3.668-.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0 3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
               )}
               {data.social.whatsapp && (
@@ -478,7 +450,7 @@ export default function App() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {data.educationList.map((edu, i) => (
                   <div key={i} className="glass-card" style={{ padding: '2rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifycontent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
                       <h3 className="card-title" style={{ margin: 0 }}>{edu.level}</h3>
                       <span className="lang-level" style={{ padding: '0.3rem 0.6rem' }}>{edu.date}</span>
                     </div>
@@ -635,98 +607,14 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="footer" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
+      {/* Secret entry 3: Double click on footer directly toggles admin editor */}
+      <footer className="footer" onDoubleClick={handleAdminAccessToggle} title="Double-click to verify admin">
         <div className="container">
           <div className="footer-logo">{data.profile.name}</div>
           <p style={{ marginBottom: '1rem' }}>Full Stack Developer • Information Systems Graduate</p>
           <p>© {new Date().getFullYear()} {data.profile.name}. All rights reserved.</p>
         </div>
       </footer>
-
-      {/* Passcode Modal Overlay */}
-      {showPasscodeModal && (
-        <div className="modal-overlay">
-          <form className="modal-content" onSubmit={verifyPasscode}>
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', color: 'var(--text-primary)', fontWeight: 800 }}>
-              Unlock Editor
-            </h3>
-            <div className="form-group" style={{ textAlign: 'left' }}>
-              <input
-                className="form-control"
-                type="password"
-                placeholder="Enter passcode"
-                value={passcodeInput}
-                onChange={(e) => setPasscodeInput(e.target.value)}
-                autoFocus
-              />
-              {passcodeError && (
-                <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', fontWeight: 600, display: 'block', textAlign: 'center' }}>
-                  {passcodeError}
-                </span>
-              )}
-            </div>
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-              <button type="button" className="btn btn-secondary" style={{ flex: 1 }} onClick={() => setShowPasscodeModal(false)}>
-                Cancel
-              </button>
-              <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
-                Verify
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {/* CSS Print Rules */}
-      <style>{`
-        @media print {
-          body {
-            background: #ffffff !important;
-            color: #000000 !important;
-          }
-          .no-print {
-            display: none !important;
-          }
-          .hero {
-            padding: 2rem 0 !important;
-          }
-          .hero-inner {
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            text-align: left !important;
-          }
-          .avatar-wrapper {
-            width: 150px !important;
-            height: 150px !important;
-          }
-          .avatar-image {
-            border-radius: 50% !important;
-          }
-          .section {
-            padding: 1.5rem 0 !important;
-            page-break-inside: avoid;
-          }
-          .glass-card, .info-card, .language-item, .skill-card {
-            background: #ffffff !important;
-            border: 1px solid #cccccc !important;
-            box-shadow: none !important;
-            color: #000000 !important;
-          }
-          .skill-bar-outer {
-            border: 1px solid #000000 !important;
-            background: #eeeeee !important;
-          }
-          .skill-bar-inner {
-            background: #000000 !important;
-          }
-          a {
-            color: #000000 !important;
-            text-decoration: underline !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }
