@@ -159,11 +159,41 @@ export default function App() {
     if (raw) {
       try {
         const parsed = JSON.parse(raw)
+        
+        // Merge projects to preserve default image paths if they are empty in local storage
+        const mergedProjects = (defaultData.projects || []).map(defProj => {
+          const localProj = (parsed.projects || []).find(p => p.title === defProj.title)
+          if (localProj) {
+            return { ...defProj, ...localProj, image: localProj.image || defProj.image }
+          }
+          return defProj
+        })
+
+        // Also add any projects that are in local storage but not in defaultData
+        const extraProjects = (parsed.projects || []).filter(
+          p => !(defaultData.projects || []).some(defP => defP.title === p.title)
+        )
+
+        // Merge works to preserve default image paths
+        const mergedWorks = (defaultData.works || []).map(defWork => {
+          const localWork = (parsed.works || []).find(w => w.title === defWork.title)
+          if (localWork) {
+            return { ...defWork, ...localWork, image: localWork.image || defWork.image }
+          }
+          return defWork
+        })
+
+        const extraWorks = (parsed.works || []).filter(
+          w => !(defaultData.works || []).some(defW => defW.title === w.title)
+        )
+
         setData({
           ...defaultData,
           ...parsed,
           profile: { ...defaultData.profile, ...(parsed.profile || {}) },
-          social: { ...defaultData.social, ...(parsed.social || {}) }
+          social: { ...defaultData.social, ...(parsed.social || {}) },
+          projects: [...mergedProjects, ...extraProjects],
+          works: [...mergedWorks, ...extraWorks]
         })
       } catch (e) {
         console.warn('Failed to parse local portfolio data', e)
