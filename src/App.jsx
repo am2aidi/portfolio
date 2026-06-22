@@ -45,14 +45,14 @@ const defaultData = {
       title: 'Hura App',
       description: 'A platform designed for quick localized services and ride tracking. It integrates React frontend components with real-time feedback elements.',
       link: 'https://huraapp.vercel.app/',
-      image: '',
+      image: '/huranow.png',
       tags: 'React, Vite, CSS, APIs'
     },
     {
       title: 'Streamfy Media Aggregator',
       description: 'A modern media streaming platform showing playlist tracks and smooth playback features, custom aggregate filters, and slick audio/video views.',
       link: 'https://streamfyappmsm.vercel.app/',
-      image: '',
+      image: '/streamfy.png',
       tags: 'React, Media Player, CSS Grid'
     },
     {
@@ -66,8 +66,15 @@ const defaultData = {
       title: 'AmaliTech Idempotency Gateway',
       description: 'A gateway utility demonstration protecting critical endpoints from duplicate API requests, facilitating safe retries for payment or transactional actions.',
       link: 'https://amalitech-idempotency-gateway.vercel.app/',
-      image: '',
+      image: '/amalitech.png',
       tags: 'Vercel, API Gateway, Node.js, Security'
+    },
+    {
+      title: 'Currency Rate Exchange',
+      description: 'A real-time currency conversion and rate exchange tracking app. Integrates exchange rate APIs for up-to-date conversion rates.',
+      link: 'https://github.com/am2aidi',
+      image: '/rate exchange.png',
+      tags: 'JavaScript, APIs, CSS Grid, Finance'
     }
   ],
   works: [
