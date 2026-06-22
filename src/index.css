@@ -49,7 +49,11 @@
   padding: 0;
 }
 
-html, body {
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -100,7 +104,6 @@ a {
   flex-direction: column;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* Global Content Constraints */
