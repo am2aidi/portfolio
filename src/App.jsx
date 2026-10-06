@@ -38,43 +38,42 @@ const defaultData = {
     { name: 'AI Workflows & Prompt Fine-Tuning', level: '85' },
     { name: 'Programming Fundamentals', level: '90' },
     { name: 'HTML5 & CSS3 (Vanilla / Modern)', level: '92' },
-    { name: 'Git & Version Control', level: '85' }
+    { name: 'Git & Version Control', level: '85' },
+    { name: 'Node.js & Express API Development', level: '80' },
+    { name: 'TypeScript Programming', level: '75' },
+    { name: 'Tailwind CSS Integration', level: '82' },
+    { name: 'Docker Containerization', level: '70' },
+    { name: 'Vercel Deployment', level: '88' },
+    { name: 'PostgreSQL Database Management', level: '78' }
   ],
   projects: [
     {
       title: 'Hura App',
-      description: 'A platform designed for quick localized services and ride tracking. It integrates React frontend components with real-time feedback elements.',
+      description: 'Hura App is a localized, real-time dispatch and request platform designed to connect service seekers with local service providers and drivers. It features dynamic location tracking, real-time message exchange elements, a responsive mobile-first UI built with React/Vite, custom CSS animations, and instant provider match notifications.',
       link: 'https://huraapp.vercel.app/',
       image: '/huranow.png',
-      tags: 'React, Vite, CSS, APIs'
+      tags: 'React, Vite, CSS, APIs, Leaflet Maps'
     },
     {
       title: 'Streamfy Media Aggregator',
-      description: 'A modern media streaming platform showing playlist tracks and smooth playback features, custom aggregate filters, and slick audio/video views.',
+      description: 'Streamfy is a modern media playback and playlist aggregation platform. It consolidates audio/video content channels, providing users with responsive list navigation, custom playlist organization, aggregate filter controls, and a custom media player interface styled with premium dark slate cards and glassmorphic overlay indicators.',
       link: 'https://streamfyappmsm.vercel.app/',
       image: '/streamfy.png',
-      tags: 'React, Media Player, CSS Grid'
+      tags: 'React, Media Player, CSS Grid, LocalStorage'
     },
     {
-      title: 'Simulation Queue Sample',
-      description: 'An interactive queue and system modeling sample web app designed to simulate server loads, network data routing, and performance metrics.',
+      title: 'Simulation & Rate Exchange App',
+      description: 'An interactive developer utility combining real-time currency conversion rate tracking with a systems queue simulation modeling system. Features a visual web canvas simulator showing queuing delays and server loads, currency exchange rate calculator integrations, historical charts, and performance benchmarking under different workload conditions.',
       link: 'https://simulation-sample.vercel.app/',
-      image: '',
-      tags: 'JavaScript, Simulation, Web Canvas'
+      image: '/rate exchange.png',
+      tags: 'JavaScript, Simulation, APIs, Web Canvas, ChartJS'
     },
     {
       title: 'AmaliTech Idempotency Gateway',
-      description: 'A gateway utility demonstration protecting critical endpoints from duplicate API requests, facilitating safe retries for payment or transactional actions.',
+      description: 'An API gateway utility demonstration that secures critical endpoints against duplicate transactions and non-idempotent actions. Implements cache check layers, secure request token headers, retry handling logic, and node execution status feedback to ensure safety in transactional operations.',
       link: 'https://amalitech-idempotency-gateway.vercel.app/',
       image: '/amalitech.png',
-      tags: 'Vercel, API Gateway, Node.js, Security'
-    },
-    {
-      title: 'Currency Rate Exchange',
-      description: 'A real-time currency conversion and rate exchange tracking app. Integrates exchange rate APIs for up-to-date conversion rates.',
-      link: 'https://github.com/am2aidi',
-      image: '/rate exchange.png',
-      tags: 'JavaScript, APIs, CSS Grid, Finance'
+      tags: 'Vercel, API Gateway, Node.js, Security, Redis Cache'
     }
   ],
   works: [
@@ -84,13 +83,6 @@ const defaultData = {
       image: '',
       description: 'Built productivity workflows incorporating AI models. Actively experimented with prompt fine-tuning to accelerate coding, generate tests, and optimize database queries.',
       tags: 'AI, LLMs, Automation'
-    },
-    {
-      title: 'Programming Instructor & Mentor',
-      link: 'https://github.com/am2aidi/portfolio',
-      image: '',
-      description: 'Taught coding basics (HTML/CSS, Python, logic flows) to peers and junior students in the Department of ICT, Faculty of Information Systems.',
-      tags: 'University of Rwanda, Mentorship'
     },
     {
       title: 'Primary & Secondary School Tutor',

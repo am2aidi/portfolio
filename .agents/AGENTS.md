@@ -11,7 +11,7 @@ This project contains the professional portfolio and resume website of **Kwizera
 
 2. **Resume Details**:
    - **Graduation Class**: expected class of 2027 (University of Rwanda, ICT Department).
-   - **Experience Order**: AI integration & workflow specialist first, programming peer tutor second, primary/secondary school tutor third, waiter at Nakka last.
+   - **Experience Order**: AI integration & workflow specialist first, primary/secondary school tutor second, waiter at Nakka last.
    - **AI workflows**: Pre-populated and highlighted as a core software developer skill.
    - **No Database**: All user updates are local-storage driven. Users can download their configuration JSON from the sync section and commit it to overwrite the default data structure.
 
