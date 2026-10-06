@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function ProjectCard({ project }) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   // Parse tags string into list
   const tagsList = project.tags 
     ? project.tags.split(',').map(tag => tag.trim()) 
@@ -114,20 +115,80 @@ export default function ProjectCard({ project }) {
             </div>
           )}
           
-          {project.link && (
-            <a 
+          <div style={{ display: 'flex', gap: '0.75rem', marginLeft: 'auto', alignItems: 'center' }}>
+            <button 
               className="btn-link" 
-              href={project.link} 
-              target="_blank" 
-              rel="noreferrer" 
-              style={{ marginLeft: 'auto' }}
+              onClick={() => setIsModalOpen(true)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
             >
-              Open
-              <svg viewBox="0 0 24 24"><path d="M5 3c-1.093 0-2 .907-2 2v14c0 1.093.907 2 2 2h14c1.093 0 2-.907 2-2v-7h-2v7H5V5h7V3H5zm9 0v2h3.586l-9.293 9.293 1.414 1.414L19 6.414V10h2V3h-7z"/></svg>
-            </a>
-          )}
+              Read More
+            </button>
+            {project.link && (
+              <a 
+                className="btn-link" 
+                href={project.link} 
+                target="_blank" 
+                rel="noreferrer"
+              >
+                Open
+                <svg viewBox="0 0 24 24"><path d="M5 3c-1.093 0-2 .907-2 2v14c0 1.093.907 2 2 2h14c1.093 0 2-.907 2-2v-7h-2v7H5V5h7V3H5zm9 0v2h3.586l-9.293 9.293 1.414 1.414L19 6.414V10h2V3h-7z"/></svg>
+              </a>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Read More Detail Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay" style={{ zIndex: 110 }}>
+          <div className="modal-content" style={{ maxWidth: '600px', textAlign: 'left', padding: '2rem', gap: '1.25rem' }}>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', color: 'var(--text-primary)', fontWeight: 800, margin: 0 }}>
+              {project.title}
+            </h3>
+            
+            {project.image && (
+              <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--glass-border)', margin: '0.5rem 0', maxHeight: '250px' }}>
+                <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            )}
+            
+            <div>
+              <h4 style={{ color: 'var(--accent-secondary)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem', fontWeight: 700 }}>
+                Project Overview
+              </h4>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: '1.6', margin: 0 }}>
+                {project.description}
+              </p>
+            </div>
+
+            {tagsList.length > 0 && (
+              <div>
+                <h4 style={{ color: 'var(--accent-primary)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem', fontWeight: 700 }}>
+                  Tech Stack & Tags
+                </h4>
+                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                  {tagsList.map((tag, idx) => (
+                    <span key={idx} className="card-tag" style={{ background: 'rgba(255,255,255,0.05)', padding: '0.3rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem' }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+              <button className="btn btn-secondary" style={{ flex: 1 }} onClick={() => setIsModalOpen(false)}>
+                Close
+              </button>
+              {project.link && (
+                <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                  Visit App 🚀
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </article>
   )
 }
