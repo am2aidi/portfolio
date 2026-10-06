@@ -331,8 +331,9 @@ export default function AdminPanel({ data, onChange, onClose }) {
           <div className="form-group"><input className="form-control" placeholder="Tags / Tech Stack (e.g. React, Flask)" value={project.tags} onChange={(e) => setProject({ ...project, tags: e.target.value })} /></div>
           <div className="form-group"><textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Short Description" value={project.description} onChange={(e) => setProject({ ...project, description: e.target.value })} /></div>
           <div className="form-group">
-            <label className="form-label" style={{ fontSize: '0.8rem' }}>Project Screenshot Image</label>
-            <input type="file" className="form-control" accept="image/*" onChange={handleProjectImage} />
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Project Screenshot Image (File Upload or Path)</label>
+            <input type="file" className="form-control" accept="image/*" onChange={handleProjectImage} style={{ marginBottom: '0.5rem' }} />
+            <input className="form-control" placeholder="Or type Image Path / URL (e.g. /huranow.png)" value={project.image} onChange={(e) => setProject({ ...project, image: e.target.value })} />
           </div>
           <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addProject}>Add Project</button>
           
@@ -354,8 +355,9 @@ export default function AdminPanel({ data, onChange, onClose }) {
           <div className="form-group"><input className="form-control" placeholder="Tags" value={work.tags} onChange={(e) => setWork({ ...work, tags: e.target.value })} /></div>
           <div className="form-group"><textarea className="form-control" style={{ minHeight: '60px' }} placeholder="Work Description" value={work.description} onChange={(e) => setWork({ ...work, description: e.target.value })} /></div>
           <div className="form-group">
-            <label className="form-label" style={{ fontSize: '0.8rem' }}>Experience Cover Image</label>
-            <input type="file" className="form-control" accept="image/*" onChange={handleWorkImage} />
+            <label className="form-label" style={{ fontSize: '0.8rem' }}>Experience Cover Image (File Upload or Path)</label>
+            <input type="file" className="form-control" accept="image/*" onChange={handleWorkImage} style={{ marginBottom: '0.5rem' }} />
+            <input className="form-control" placeholder="Or type Image Path / URL (e.g. /profile.jpeg)" value={work.image} onChange={(e) => setWork({ ...work, image: e.target.value })} />
           </div>
           <button className="btn btn-primary" style={{ alignSelf: 'flex-start' }} onClick={addWork}>Add Work</button>
 
