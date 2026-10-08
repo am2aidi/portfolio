@@ -1,26 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
 
 :root {
-  --bg-primary: #000000;
-  --bg-secondary: #08080a;
-  --bg-tertiary: #121215;
+  --bg-primary: #050507;
+  --bg-secondary: #0a0a0e;
+  --bg-tertiary: #121218;
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
-  --accent-primary: #ffffff;
-  --accent-secondary: #e4e4e7;
-  --accent-glow: rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(14, 14, 16, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-border-hover: rgba(255, 255, 255, 0.8);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.75);
+  --accent-primary: #e11d48; /* Crimson Red */
+  --accent-secondary: #ff2b4a; /* Glowing Crimson */
+  --accent-glow: rgba(225, 29, 72, 0.22);
+  --glass-bg: rgba(15, 15, 20, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(225, 29, 72, 0.6);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.85);
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.95);
   --font-heading: 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
   --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  --glow-left: rgba(255, 255, 255, 0.03);
-  --glow-right: rgba(255, 255, 255, 0.03);
+  --glow-left: rgba(225, 29, 72, 0.08);
+  --glow-right: rgba(225, 29, 72, 0.06);
 }
 
 [data-theme="light"] {
@@ -30,17 +30,17 @@
   --text-primary: #09090b;
   --text-secondary: #52525b;
   --text-muted: #8e8e93;
-  --accent-primary: #09090b;
-  --accent-secondary: #27272a;
-  --accent-glow: rgba(0, 0, 0, 0.05);
+  --accent-primary: #e11d48;
+  --accent-secondary: #be123c;
+  --accent-glow: rgba(225, 29, 72, 0.08);
   --glass-bg: rgba(255, 255, 255, 0.92);
   --glass-border: rgba(0, 0, 0, 0.12);
-  --glass-border-hover: rgba(0, 0, 0, 0.8);
+  --glass-border-hover: rgba(225, 29, 72, 0.6);
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.12);
-  --glow-left: rgba(0, 0, 0, 0.02);
-  --glow-right: rgba(0, 0, 0, 0.02);
+  --glow-left: rgba(225, 29, 72, 0.04);
+  --glow-right: rgba(225, 29, 72, 0.04);
 }
 
 * {
@@ -187,10 +187,29 @@ a {
   gap: 1.25rem;
 }
 
-/* Hero Section */
+/* Hero Section Poster Style */
 .hero {
   padding: 6rem 0 4rem;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-watermark {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  font-weight: 900;
+  color: rgba(225, 29, 72, 0.16);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  z-index: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
 }
 
 .hero-inner {
@@ -198,13 +217,24 @@ a {
   grid-template-columns: 1.2fr 0.8fr;
   gap: 4rem;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
+  gap: 1.25rem;
+}
+
+.hero-greeting {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  display: block;
 }
 
 .badge {
@@ -214,38 +244,38 @@ a {
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 800;
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  border: 1px solid var(--glass-border);
+  background: rgba(225, 29, 72, 0.12);
+  color: var(--accent-secondary);
+  border: 1px solid rgba(225, 29, 72, 0.3);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: 3.8rem;
+  font-size: 4rem;
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.05;
   letter-spacing: -0.04em;
   color: var(--text-primary);
+  text-transform: uppercase;
 }
 
 .hero-title span {
-  background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .hero-subtitle {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  letter-spacing: -0.01em;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .hero-bio {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
   line-height: 1.7;
 }
@@ -266,8 +296,8 @@ a {
 
 .avatar-wrapper {
   position: relative;
-  width: 310px;
-  height: 310px;
+  width: 320px;
+  height: 360px;
   max-width: 100%;
 }
 
@@ -275,8 +305,8 @@ a {
   position: absolute;
   inset: -10px;
   border-radius: 28px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  filter: blur(20px);
+  background: var(--accent-primary);
+  filter: blur(25px);
   opacity: 0.25;
   z-index: 1;
 }
@@ -284,11 +314,11 @@ a {
 .avatar-frame {
   position: absolute;
   inset: 0;
-  border-radius: 28px;
+  border-radius: 24px;
   background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  padding: 8px;
-  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--accent-primary);
+  padding: 6px;
+  box-shadow: 0 0 30px var(--accent-glow);
   z-index: 2;
   overflow: hidden;
   backdrop-filter: blur(12px);
@@ -1151,250 +1181,272 @@ input:checked + .slider::before {
 /* ==========================================
    PRINT / PDF EXPORT CLEAN RESUME STYLING
    ========================================== */
-@media print {
-  .print-only {
-    display: block !important;
-  }
+/* Work Process & Quote Box */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
 
+.process-step {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 1.5rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.process-step:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.process-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-primary);
+}
+
+.process-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.process-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.quote-card {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.15), rgba(15, 15, 20, 0.95));
+  border: 1px solid rgba(225, 29, 72, 0.35);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  height: 100%;
+}
+
+.quote-mark {
+  font-size: 3.5rem;
+  color: var(--accent-primary);
+  line-height: 0.8;
+  font-family: serif;
+}
+
+.quote-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.quote-author {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Screen Print Helper */
+.print-only {
+  display: none !important;
+}
+
+/* ==========================================
+   PRINT / PDF EXPORT DEDICATED RESUME ENGINE
+   ========================================== */
+@media print {
+  /* Hide main website UI completely */
   .no-print,
+  .app-website-root,
   .navbar,
-  .hero-visual,
-  .hero-buttons,
-  .social-links,
-  .badge,
-  .theme-switch,
-  .projects-tabs,
+  .hero,
+  .content,
+  .footer,
   .admin-section-container,
   .admin-panel,
   .modal-overlay,
-  .card-img-wrapper,
-  .contact-form,
-  .footer,
-  .btn,
-  .btn-link,
   body::before,
-  body::after,
-  .avatar-bg-glow {
+  body::after {
     display: none !important;
   }
 
+  .print-only,
+  .pdf-cv-container {
+    display: block !important;
+  }
+
   @page {
-    margin: 12mm 15mm 12mm 15mm;
-    size: auto;
+    margin: 10mm 12mm 10mm 12mm;
+    size: A4 portrait;
   }
 
   html, body {
     background: #ffffff !important;
     color: #111111 !important;
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
-    font-size: 10pt !important;
-    line-height: 1.5 !important;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif !important;
+    font-size: 9.5pt !important;
+    line-height: 1.45 !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  .app {
-    background: #ffffff !important;
+  .pdf-cv-container {
+    padding: 0 !important;
+    margin: 0 !important;
     color: #111111 !important;
-    min-height: auto !important;
+    background: #ffffff !important;
   }
 
-  .container {
-    max-width: 100% !important;
-    padding: 0 !important;
+  .pdf-header {
+    border-bottom: 2.5px solid #111111;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+  }
+
+  .pdf-name {
+    font-size: 22pt !important;
+    font-weight: 900 !important;
+    color: #000000 !important;
+    margin: 0 0 2px 0 !important;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .pdf-title {
+    font-size: 10.5pt !important;
+    font-weight: 700 !important;
+    color: #222222 !important;
     margin: 0 !important;
   }
 
-  /* Print Header Section */
-  .print-cv-header {
-    border-bottom: 2px solid #111111;
-    padding-bottom: 8px;
-    margin-bottom: 14px;
-    text-align: left;
-  }
-
-  .print-cv-header h1 {
-    font-size: 20pt !important;
-    font-weight: 800 !important;
-    color: #111111 !important;
-    margin: 0 0 3px 0 !important;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-  }
-
-  .print-cv-header h2 {
-    font-size: 11.5pt !important;
-    font-weight: 700 !important;
-    color: #333333 !important;
-    margin: 0 0 6px 0 !important;
-  }
-
-  .print-cv-contact {
+  .pdf-header-meta {
     font-size: 8.5pt !important;
-    color: #444444 !important;
+    color: #333333 !important;
     display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 12px !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 2px !important;
     font-weight: 600 !important;
   }
 
-  /* Sections in Print */
-  .section {
-    padding: 10px 0 !important;
+  .pdf-section {
+    margin-bottom: 12px !important;
     page-break-inside: avoid;
   }
 
-  .hero {
-    padding: 0 0 10px 0 !important;
-  }
-
-  .hero-inner {
-    display: block !important;
-  }
-
-  .hero-title,
-  .hero-subtitle {
-    display: none !important;
-  }
-
-  .hero-bio {
-    color: #222222 !important;
-    font-size: 9.5pt !important;
-    line-height: 1.5 !important;
-    margin-bottom: 10px !important;
-  }
-
-  .section-title {
-    font-size: 12pt !important;
-    font-weight: 700 !important;
-    color: #111111 !important;
-    border-bottom: 1.5px solid #222222 !important;
-    padding-bottom: 3px !important;
-    margin-bottom: 8px !important;
+  .pdf-heading {
+    font-size: 11pt !important;
+    font-weight: 900 !important;
+    color: #000000 !important;
+    border-bottom: 1.5px solid #111111 !important;
+    padding-bottom: 2px !important;
+    margin-bottom: 6px !important;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
-  .about-grid {
-    display: block !important;
-  }
-
-  .about-text-block p {
-    color: #222222 !important;
-    font-size: 9.5pt !important;
-  }
-
-  .about-details {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 6px !important;
-    margin-top: 8px !important;
-  }
-
-  .info-card {
-    background: transparent !important;
-    border: 1px solid #e2e8f0 !important;
-    padding: 4px 8px !important;
-    border-radius: 4px !important;
-  }
-
-  .info-label {
-    color: #666666 !important;
-    font-size: 7.5pt !important;
-  }
-
-  .info-value {
-    color: #111111 !important;
-    font-weight: 600 !important;
-    font-size: 8.5pt !important;
-  }
-
-  /* Skills Grid in Print */
-  .skills-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 6px !important;
-  }
-
-  .skill-card {
-    background: transparent !important;
-    border: 1px solid #e2e8f0 !important;
-    padding: 5px 8px !important;
-    border-radius: 4px !important;
-    box-shadow: none !important;
-  }
-
-  .skill-name {
-    color: #111111 !important;
-    font-weight: 600 !important;
+  .pdf-text {
     font-size: 9pt !important;
+    color: #222222 !important;
+    line-height: 1.45 !important;
   }
 
-  .skill-percentage {
-    color: #555555 !important;
-    font-weight: 700 !important;
+  .pdf-grid-2 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .pdf-item {
+    border: 1px solid #e2e8f0 !important;
+    padding: 6px 8px !important;
+    border-radius: 4px !important;
+  }
+
+  .pdf-item-header {
+    font-size: 9pt !important;
+    color: #000000 !important;
+  }
+
+  .pdf-item-sub {
+    font-size: 8pt !important;
+    color: #666666 !important;
+    font-weight: 600 !important;
+  }
+
+  .pdf-item-desc {
     font-size: 8.5pt !important;
+    color: #333333 !important;
+    margin-top: 2px !important;
   }
 
-  .skill-bar-outer {
-    display: none !important;
+  .pdf-skills-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
   }
 
-  /* Project & Work Grid in Print */
-  .grid-layout {
+  .pdf-skill-badge {
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    font-size: 8pt !important;
+    font-weight: 700 !important;
+  }
+
+  .pdf-projects-list {
     display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
   }
 
-  .glass-card {
-    background: transparent !important;
-    border: 1px solid #e2e8f0 !important;
-    padding: 8px 10px !important;
-    border-radius: 6px !important;
-    box-shadow: none !important;
-    page-break-inside: avoid;
+  .pdf-project-item {
+    border-left: 3px solid #111111 !important;
+    padding-left: 8px !important;
   }
 
-  .card-title {
-    color: #111111 !important;
-    font-size: 10.5pt !important;
-    font-weight: 700 !important;
-    margin-bottom: 3px !important;
+  .pdf-project-title {
+    font-size: 9.5pt !important;
+    color: #000000 !important;
   }
 
-  .card-description {
-    color: #333333 !important;
-    font-size: 9pt !important;
-    line-height: 1.4 !important;
-    margin-bottom: 5px !important;
-  }
-
-  .card-tags {
-    display: flex !important;
-    gap: 4px !important;
-    flex-wrap: wrap !important;
-  }
-
-  .card-tag {
-    background: #f1f5f9 !important;
-    color: #334155 !important;
-    border: 1px solid #cbd5e1 !important;
-    padding: 1px 5px !important;
-    font-size: 7.5pt !important;
+  .pdf-link {
+    font-size: 8pt !important;
+    color: #475569 !important;
     font-weight: 600 !important;
-    border-radius: 3px !important;
   }
 
-  /* Education List in Print */
-  .glass-card h3 {
-    color: #111111 !important;
-    font-size: 10.5pt !important;
+  .pdf-project-desc {
+    font-size: 8.5pt !important;
+    color: #333333 !important;
+    line-height: 1.4 !important;
   }
 
-  .glass-card h4 {
-    color: #334155 !important;
-    font-size: 9pt !important;
+  .pdf-tags {
+    font-size: 7.5pt !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
   }
 }

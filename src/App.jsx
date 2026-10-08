@@ -301,84 +301,70 @@ export default function App() {
 
   return (
     <div className="app">
-      {/* Navigation Header */}
-      <nav className="navbar no-print">
-        <div className="navbar-inner container">
-          {/* Secret entry 2: Double click on logo directly triggers admin passcode verification */}
-          <a href="#" className="logo" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
-            {data.profile.name.split(' ')[0]}.
-          </a>
-          <div className="nav-links">
-            <a href="#about" className="nav-item">About</a>
-            <a href="#skills" className="nav-item">Skills</a>
-            <a href="#projects" className="nav-item">Portfolio</a>
-            <a href="#contact" className="nav-item">Contact</a>
-          </div>
-          <div className="nav-actions">
-            {/* Theme Toggle Switch */}
-            <label className="theme-switch" title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}>
-              <input 
-                type="checkbox" 
-                checked={theme === 'light'} 
-                onChange={() => setTheme(t => t === 'light' ? 'dark' : 'light')} 
-              />
-              <span className="slider">
-                <span className="slider-icon">🌙</span>
-                <span className="slider-icon">☀️</span>
-              </span>
-            </label>
-
-            {/* Hire Me Header CTA */}
-            <a href="#contact" className="btn btn-primary no-print" style={{ padding: '0.4rem 1.1rem', fontSize: '0.85rem' }}>
-              Hire Me 💼
+      {/* Interactive Main Website */}
+      <div className="app-website-root">
+        {/* Navigation Header */}
+        <nav className="navbar no-print">
+          <div className="navbar-inner container">
+            {/* Secret entry 2: Double click on logo directly triggers admin passcode verification */}
+            <a href="#" className="logo" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
+              {data.profile.name.split(' ')[0]}.
             </a>
+            <div className="nav-links">
+              <a href="#about" className="nav-item">About</a>
+              <a href="#skills" className="nav-item">Skills</a>
+              <a href="#projects" className="nav-item">Portfolio</a>
+              <a href="#contact" className="nav-item">Contact</a>
+            </div>
+            <div className="nav-actions">
+              {/* Theme Toggle Switch */}
+              <label className="theme-switch" title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}>
+                <input 
+                  type="checkbox" 
+                  checked={theme === 'light'} 
+                  onChange={() => setTheme(t => t === 'light' ? 'dark' : 'light')} 
+                />
+                <span className="slider">
+                  <span className="slider-icon">🌙</span>
+                  <span className="slider-icon">☀️</span>
+                </span>
+              </label>
+
+              {/* Hire Me Header CTA */}
+              <a href="#contact" className="btn btn-primary no-print" style={{ padding: '0.4rem 1.1rem', fontSize: '0.85rem' }}>
+                Hire Me 💼
+              </a>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* Admin Panel Render */}
-      {showAdmin && (
-        <div className="admin-section-container container no-print">
-          <AdminPanel data={data} onChange={handleUpdate} onClose={() => setShowAdmin(false)} />
-        </div>
-      )}
+        {/* Admin Panel Render */}
+        {showAdmin && (
+          <div className="admin-section-container container no-print">
+            <AdminPanel data={data} onChange={handleUpdate} onClose={() => setShowAdmin(false)} />
+          </div>
+        )}
 
-      {/* Hero Section */}
-      <header className="hero" id="home">
-        <div className="hero-inner container">
-          <div className="hero-content">
-            {/* Clean PDF CV Export Header (Visible only when exporting/printing CV) */}
-            <div className="print-cv-header print-only">
-              <h1>{data.profile.name}</h1>
-              <h2>{data.profile.title}</h2>
-              <div className="print-cv-contact">
-                <span>📧 {data.profile.email}</span>
-                <span>📞 {data.profile.phone}</span>
-                <span>📍 {data.profile.location}</span>
-                {data.social.github && <span>💻 {data.social.github.replace('https://', '')}</span>}
-              </div>
-            </div>
-
-            <span className="badge no-print">{data.profile.headline}</span>
-            <h1 className="hero-title">
-              Hi, I'm <span>{data.profile.name}</span>
-            </h1>
-            <p className="hero-subtitle">{data.profile.title}</p>
-            <p className="hero-bio">{data.profile.bio}</p>
-            
-            <div className="hero-buttons no-print">
-              <a href="#contact" className="btn btn-primary">Hire Me 💼</a>
-              <a href="#projects" className="btn btn-secondary">View My Work</a>
-              {data.profile.cv ? (
-                <a href={data.profile.cv} download={`${data.profile.name.replace(' ', '_')}_CV.pdf`} className="btn btn-secondary">
-                  Download CV 📥
-                </a>
-              ) : (
+        {/* Hero Section Poster Style */}
+        <header className="hero" id="home">
+          <div className="hero-bg-watermark no-print">PORTFOLIO</div>
+          <div className="hero-inner container">
+            <div className="hero-content">
+              <span className="badge no-print">{data.profile.headline}</span>
+              <span className="hero-greeting no-print">Hello, I'm</span>
+              <h1 className="hero-title">
+                <span>{data.profile.name}</span>
+              </h1>
+              <p className="hero-subtitle">{data.profile.title}</p>
+              <p className="hero-bio">{data.profile.bio}</p>
+              
+              <div className="hero-buttons no-print">
+                <a href="#contact" className="btn btn-primary">Hire Me 💼</a>
+                <a href="#projects" className="btn btn-secondary">View Work</a>
                 <button className="btn btn-secondary" onClick={() => window.print()}>
-                  Print Resume 📄
+                  Print PDF Resume 📄
                 </button>
-              )}
-            </div>
+              </div>
 
             {/* Social Icons */}
             <div className="social-links no-print">
@@ -625,6 +611,50 @@ export default function App() {
           </div>
         </section>
 
+        {/* Work Process Section (From Poster Reference Layout) */}
+        <section className="section no-print" id="process">
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem', alignItems: 'stretch' }}>
+            <div>
+              <div className="section-header" style={{ marginBottom: '1.5rem' }}>
+                <span className="section-tag">Engineering Workflow</span>
+                <h2 className="section-title">Work Process</h2>
+              </div>
+              <div className="process-grid">
+                <div className="process-step">
+                  <span className="process-num">01</span>
+                  <span className="process-title">DISCOVER</span>
+                  <p className="process-desc">Understanding client goals, user audience, and system requirements.</p>
+                </div>
+                <div className="process-step">
+                  <span className="process-num">02</span>
+                  <span className="process-title">RESEARCH & SCHEMA</span>
+                  <p className="process-desc">Planning database models, API specs, and clean component contracts.</p>
+                </div>
+                <div className="process-step">
+                  <span className="process-num">03</span>
+                  <span className="process-title">DEVELOP</span>
+                  <p className="process-desc">Building fast, robust web applications using Python, Flask & React.</p>
+                </div>
+                <div className="process-step">
+                  <span className="process-num">04</span>
+                  <span className="process-title">DELIVER</span>
+                  <p className="process-desc">Rigorous testing, optimization, and seamless cloud deployment.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="quote-card">
+              <div className="quote-mark">“</div>
+              <p className="quote-text">
+                Good code and design is not just how it looks — it communicates, connects, and delivers real-world results.
+              </p>
+              <div className="quote-author">
+                — {data.profile.name}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Contact Section */}
         <section className="section no-print" id="contact">
           <div className="contact-grid container">
@@ -734,6 +764,79 @@ export default function App() {
           </form>
         </div>
       )}
+    </div>
+    {/* End app-website-root */}
+
+    {/* Dedicated Executive PDF CV View (Renders ONLY when saving/printing to PDF) */}
+    <div className="pdf-cv-container print-only">
+      <header className="pdf-header">
+        <div>
+          <h1 className="pdf-name">{data.profile.name}</h1>
+          <p className="pdf-title">{data.profile.title}</p>
+        </div>
+        <div className="pdf-header-meta">
+          <div><strong>Email:</strong> {data.profile.email}</div>
+          <div><strong>Phone:</strong> {data.profile.phone}</div>
+          <div><strong>Location:</strong> {data.profile.location}</div>
+          <div><strong>Date:</strong> {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div>
+        </div>
+      </header>
+
+      <section className="pdf-section">
+        <h2 className="pdf-heading">EXECUTIVE SUMMARY</h2>
+        <p className="pdf-text">{data.profile.bio}</p>
+      </section>
+
+      <section className="pdf-section">
+        <h2 className="pdf-heading">EDUCATION & ACADEMIC QUALIFICATIONS</h2>
+        <div className="pdf-grid-2">
+          {(data.educationList || []).map((edu, idx) => (
+            <div key={idx} className="pdf-item">
+              <div className="pdf-item-header">
+                <strong>{edu.level}</strong> — <span>{edu.institution}</span>
+              </div>
+              <div className="pdf-item-sub">{edu.date}</div>
+              <p className="pdf-item-desc">{edu.details}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="pdf-section">
+        <h2 className="pdf-heading">TECHNICAL SKILLS & PROFICIENCIES</h2>
+        <div className="pdf-skills-list">
+          {(data.skills || []).slice(0, 12).map((s, idx) => (
+            <span key={idx} className="pdf-skill-badge">{s.name} ({s.level}%)</span>
+          ))}
+        </div>
+      </section>
+
+      <section className="pdf-section">
+        <h2 className="pdf-heading">FEATURED PROJECTS (SHORT SUMMARY)</h2>
+        <div className="pdf-projects-list">
+          {(data.projects || []).slice(0, 4).map((proj, idx) => (
+            <div key={idx} className="pdf-project-item">
+              <div className="pdf-project-title">
+                <strong>{idx + 1}. {proj.title}</strong> — <span className="pdf-link">{proj.link}</span>
+              </div>
+              <p className="pdf-project-desc">{proj.description}</p>
+              <div className="pdf-tags">Stack: {proj.tags}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="pdf-section">
+        <h2 className="pdf-heading">PROFESSIONAL EXPERIENCE</h2>
+        <div className="pdf-projects-list">
+          {(data.works || []).map((w, idx) => (
+            <div key={idx} className="pdf-project-item">
+              <strong>{w.title}</strong>: {w.description}
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
     </div>
   )
 }
