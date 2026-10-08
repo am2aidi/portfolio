@@ -187,12 +187,33 @@ a {
   gap: 1.25rem;
 }
 
-/* Hero Section Poster Style */
+/* Hero Section VisionOS Glass & Ambient Photo Blend */
 .hero {
-  padding: 6rem 0 4rem;
+  padding: 5rem 0 4rem;
   width: 100%;
   position: relative;
   overflow: hidden;
+}
+
+.hero-bg-photo {
+  position: absolute;
+  inset: -20px;
+  background-size: cover;
+  background-position: center 25%;
+  opacity: 0.25;
+  filter: blur(28px) brightness(0.65) saturate(140%);
+  transform: scale(1.08);
+  z-index: 0;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(5, 5, 7, 0.4), rgba(5, 5, 7, 0.95));
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero-bg-watermark {
@@ -206,7 +227,7 @@ a {
   color: rgba(225, 29, 72, 0.16);
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   white-space: nowrap;
   user-select: none;
@@ -215,10 +236,17 @@ a {
 .hero-inner {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  gap: 4rem;
+  gap: 3.5rem;
   align-items: center;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  background: rgba(18, 18, 24, 0.65);
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 32px;
+  padding: 3.5rem 3rem;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 .hero-content {
@@ -244,11 +272,12 @@ a {
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 800;
-  background: rgba(225, 29, 72, 0.12);
-  color: var(--accent-secondary);
-  border: 1px solid rgba(225, 29, 72, 0.3);
+  background: rgba(225, 29, 72, 0.16);
+  color: #ffffff;
+  border: 1px solid rgba(225, 29, 72, 0.4);
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  backdrop-filter: blur(10px);
 }
 
 .hero-title {
@@ -263,7 +292,7 @@ a {
 
 .hero-title span {
   color: #ffffff;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
@@ -272,12 +301,14 @@ a {
   color: var(--accent-primary);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .hero-bio {
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color: #d4d4d8;
   line-height: 1.7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .hero-buttons {
@@ -307,7 +338,7 @@ a {
   border-radius: 28px;
   background: var(--accent-primary);
   filter: blur(25px);
-  opacity: 0.25;
+  opacity: 0.3;
   z-index: 1;
 }
 
@@ -315,13 +346,13 @@ a {
   position: absolute;
   inset: 0;
   border-radius: 24px;
-  background: var(--glass-bg);
-  border: 2px solid var(--accent-primary);
+  background: rgba(18, 18, 24, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 6px;
-  box-shadow: 0 0 30px var(--accent-glow);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3);
   z-index: 2;
   overflow: hidden;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
 }
 
 .avatar-image {

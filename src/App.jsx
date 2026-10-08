@@ -265,7 +265,7 @@ export default function App() {
 
   function verifyPasscode(e) {
     e.preventDefault()
-    if (passcodeInput.toLowerCase() === 'zaidi' || passcodeInput.toLowerCase() === 'admin') {
+    if (passcodeInput.toLowerCase() === 'zaidigram2023' || passcodeInput.toLowerCase() === 'zaidi' || passcodeInput.toLowerCase() === 'admin') {
       setShowPasscodeModal(false)
       setShowAdmin(true)
     } else {
@@ -345,8 +345,15 @@ export default function App() {
           </div>
         )}
 
-        {/* Hero Section Poster Style */}
+        {/* Hero Section Poster & VisionOS Glass Style */}
         <header className="hero" id="home">
+          {data.profile.image && (
+            <div 
+              className="hero-bg-photo no-print" 
+              style={{ backgroundImage: `url(${data.profile.image})` }}
+            ></div>
+          )}
+          <div className="hero-bg-overlay no-print"></div>
           <div className="hero-bg-watermark no-print">PORTFOLIO</div>
           <div className="hero-inner container">
             <div className="hero-content">
@@ -362,7 +369,7 @@ export default function App() {
                 <a href="#contact" className="btn btn-primary">Hire Me 💼</a>
                 <a href="#projects" className="btn btn-secondary">View Work</a>
                 <button className="btn btn-secondary" onClick={() => window.print()}>
-                  Print PDF Resume 📄
+                  Export PDF CV 📥
                 </button>
               </div>
 
