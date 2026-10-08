@@ -7,9 +7,9 @@ const STORAGE_KEY = 'portfolio-data'
 const defaultData = {
   profile: {
     name: 'Kwizera Zaidi',
-    title: 'Full Stack Developer',
-    headline: 'Information Systems Graduate & AI Integration Specialist',
-    bio: 'I am Kwizera Zaidi, a motivated and hardworking Full Stack Developer currently pursuing my degree in Information Systems at the University of Rwanda (expected graduation 2027). I possess a strong foundation in Computer Science, Mathematics, and Economics, and specialize in web database applications using Python, Flask, React, and MySQL. I actively integrate AI technologies to write cleaner, faster code, and I have trained prompt models to optimize my engineering workflows. I am also dedicated to education, having mentored university peers and tutored primary/secondary students.',
+    title: 'Full Stack Developer & Professional Photographer',
+    headline: 'Information Systems Student, AI Workflow Specialist & Photographer',
+    bio: 'I am Kwizera Zaidi, a motivated Full Stack Developer and Professional Photographer currently pursuing my degree in Information Systems at the University of Rwanda (expected graduation 2027). I combine software engineering with digital media production, specializing in web database applications (Python, Flask, React, MySQL), AI workflow automation, and commercial portrait & event photography.',
     email: 'zaidikwizera@gmail.com',
     phone: '0785283267',
     address: 'Kigali, Rwanda',
@@ -19,9 +19,9 @@ const defaultData = {
     nationality: 'Rwandan',
     maritalStatus: 'Single',
     location: 'Kigali, Rwanda',
-    availability: 'Open to Work',
+    availability: 'Open to Work & Freelance Photography',
     education: 'University of Rwanda (Information Systems, Class of 2027)',
-    experienceNotes: 'AI-assisted full-stack development, Python/Flask API design, and tutoring programming fundamentals.',
+    experienceNotes: 'AI-assisted full-stack development, Python/Flask API design, and professional photography.',
     image: '/profile.jpeg',
     cv: '',
     experienceYears: '2+'
@@ -30,6 +30,8 @@ const defaultData = {
     { name: 'Computer Science & Software Development', level: '88' },
     { name: 'React.js & Frontend Architectures', level: '85' },
     { name: 'Python & Flask Framework', level: '85' },
+    { name: 'Photography & Digital Media Production', level: '88' },
+    { name: 'Adobe Lightroom & Photo Color Grading', level: '85' },
     { name: 'NumPy & Pandas (Data Analysis)', level: '80' },
     { name: 'Python Simulation & Math Modeling', level: '82' },
     { name: 'Machine Learning Modeling', level: '75' },
@@ -85,6 +87,13 @@ const defaultData = {
       tags: 'AI, LLMs, Automation'
     },
     {
+      title: 'Professional Photographer & Visual Media Creator',
+      link: 'https://instagram.com/am2aidi',
+      image: '',
+      description: 'Captured commercial portraits, event photography, and visual media campaigns. Managed RAW photo processing, Adobe Lightroom color grading, and client gallery delivery.',
+      tags: 'Photography, Digital Media, Color Grading'
+    },
+    {
       title: 'Primary & Secondary School Tutor',
       link: '#',
       image: '',
@@ -119,7 +128,7 @@ const defaultData = {
       details: 'Studied general sciences, fundamentals of math, and introductory computing concepts.'
     }
   ],
-  hobbies: ['traveling', 'reading', 'blogging', 'movies and music', 'reading quran', 'sports'],
+  hobbies: ['photography & digital media', 'traveling', 'reading', 'blogging', 'movies and music', 'reading quran', 'sports'],
   languages: [
     { name: 'English', level: 'Fluent' },
     { name: 'Kinyarwanda', level: 'Native' },
