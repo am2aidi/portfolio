@@ -76,6 +76,13 @@ const defaultData = {
       link: 'https://amalitech-idempotency-gateway.vercel.app/',
       image: '/amalitech.png',
       tags: 'Vercel, API Gateway, Node.js, Security, Redis Cache'
+    },
+    {
+      title: 'NutriMe Nutrition Platform',
+      description: 'A personalized nutrition and meal planning web application featuring macro-nutrient calculation metrics, customized dietary goal trackers, calorie allocation summaries, and Leaflet OpenStreetMap integrations to locate fresh ingredient vendors and healthy meal providers.',
+      link: 'https://nutri-me-neon.vercel.app/',
+      image: '',
+      tags: 'React, Leaflet Maps, FontAwesome, Nutrition APIs, CSS3'
     }
   ],
   works: [
