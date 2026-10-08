@@ -1123,3 +1123,259 @@ input:checked + .slider::before {
     padding: 2rem 1rem;
   }
 }
+
+/* Screen Print Helper */
+.print-only {
+  display: none !important;
+}
+
+/* ==========================================
+   PRINT / PDF EXPORT CLEAN RESUME STYLING
+   ========================================== */
+@media print {
+  .print-only {
+    display: block !important;
+  }
+
+  .no-print,
+  .navbar,
+  .hero-visual,
+  .hero-buttons,
+  .social-links,
+  .badge,
+  .theme-switch,
+  .projects-tabs,
+  .admin-section-container,
+  .admin-panel,
+  .modal-overlay,
+  .card-img-wrapper,
+  .contact-form,
+  .footer,
+  .btn,
+  .btn-link,
+  body::before,
+  body::after,
+  .avatar-bg-glow {
+    display: none !important;
+  }
+
+  @page {
+    margin: 12mm 15mm 12mm 15mm;
+    size: auto;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+    font-size: 10pt !important;
+    line-height: 1.5 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .app {
+    background: #ffffff !important;
+    color: #111111 !important;
+    min-height: auto !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Print Header Section */
+  .print-cv-header {
+    border-bottom: 2px solid #111111;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+    text-align: left;
+  }
+
+  .print-cv-header h1 {
+    font-size: 20pt !important;
+    font-weight: 800 !important;
+    color: #111111 !important;
+    margin: 0 0 3px 0 !important;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .print-cv-header h2 {
+    font-size: 11.5pt !important;
+    font-weight: 700 !important;
+    color: #333333 !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  .print-cv-contact {
+    font-size: 8.5pt !important;
+    color: #444444 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    font-weight: 600 !important;
+  }
+
+  /* Sections in Print */
+  .section {
+    padding: 10px 0 !important;
+    page-break-inside: avoid;
+  }
+
+  .hero {
+    padding: 0 0 10px 0 !important;
+  }
+
+  .hero-inner {
+    display: block !important;
+  }
+
+  .hero-title,
+  .hero-subtitle {
+    display: none !important;
+  }
+
+  .hero-bio {
+    color: #222222 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .section-title {
+    font-size: 12pt !important;
+    font-weight: 700 !important;
+    color: #111111 !important;
+    border-bottom: 1.5px solid #222222 !important;
+    padding-bottom: 3px !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .about-grid {
+    display: block !important;
+  }
+
+  .about-text-block p {
+    color: #222222 !important;
+    font-size: 9.5pt !important;
+  }
+
+  .about-details {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+  }
+
+  .info-card {
+    background: transparent !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+  }
+
+  .info-label {
+    color: #666666 !important;
+    font-size: 7.5pt !important;
+  }
+
+  .info-value {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    font-size: 8.5pt !important;
+  }
+
+  /* Skills Grid in Print */
+  .skills-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .skill-card {
+    background: transparent !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 5px 8px !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+  }
+
+  .skill-name {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    font-size: 9pt !important;
+  }
+
+  .skill-percentage {
+    color: #555555 !important;
+    font-weight: 700 !important;
+    font-size: 8.5pt !important;
+  }
+
+  .skill-bar-outer {
+    display: none !important;
+  }
+
+  /* Project & Work Grid in Print */
+  .grid-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .glass-card {
+    background: transparent !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 8px 10px !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  .card-title {
+    color: #111111 !important;
+    font-size: 10.5pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 3px !important;
+  }
+
+  .card-description {
+    color: #333333 !important;
+    font-size: 9pt !important;
+    line-height: 1.4 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .card-tags {
+    display: flex !important;
+    gap: 4px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .card-tag {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 1px 5px !important;
+    font-size: 7.5pt !important;
+    font-weight: 600 !important;
+    border-radius: 3px !important;
+  }
+
+  /* Education List in Print */
+  .glass-card h3 {
+    color: #111111 !important;
+    font-size: 10.5pt !important;
+  }
+
+  .glass-card h4 {
+    color: #334155 !important;
+    font-size: 9pt !important;
+  }
+}

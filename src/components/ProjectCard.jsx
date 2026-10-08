@@ -14,11 +14,11 @@ export default function ProjectCard({ project }) {
   return (
     <article className="glass-card">
       {project.image ? (
-        <div className="card-img-wrapper">
+        <div className="card-img-wrapper no-print">
           <img src={project.image} alt={project.title} className="card-image" />
         </div>
       ) : (
-        <div style={{
+        <div className="no-print" style={{
           height: '160px',
           background: isGitHub 
             ? 'linear-gradient(135deg, #09090b, #18181b)' 
@@ -115,7 +115,7 @@ export default function ProjectCard({ project }) {
             </div>
           )}
           
-          <div style={{ display: 'flex', gap: '0.75rem', marginLeft: 'auto', alignItems: 'center' }}>
+          <div className="no-print" style={{ display: 'flex', gap: '0.75rem', marginLeft: 'auto', alignItems: 'center' }}>
             <button 
               className="btn-link" 
               onClick={() => setIsModalOpen(true)}
@@ -140,7 +140,7 @@ export default function ProjectCard({ project }) {
 
       {/* Read More Detail Modal */}
       {isModalOpen && (
-        <div className="modal-overlay" style={{ zIndex: 110 }}>
+        <div className="modal-overlay no-print" style={{ zIndex: 110 }}>
           <div className="modal-content" style={{ maxWidth: '600px', textAlign: 'left', padding: '2rem', gap: '1.25rem' }}>
             <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', color: 'var(--text-primary)', fontWeight: 800, margin: 0 }}>
               {project.title}

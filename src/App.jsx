@@ -7,9 +7,9 @@ const STORAGE_KEY = 'portfolio-data'
 const defaultData = {
   profile: {
     name: 'Kwizera Zaidi',
-    title: 'Full Stack Developer & Professional Photographer',
-    headline: 'Information Systems Student, AI Workflow Specialist & Photographer',
-    bio: 'I am Kwizera Zaidi, a motivated Full Stack Developer and Professional Photographer currently pursuing my degree in Information Systems at the University of Rwanda (expected graduation 2027). I combine software engineering with digital media production, specializing in web database applications (Python, Flask, React, MySQL), AI workflow automation, and commercial portrait & event photography.',
+    title: 'Full Stack Developer & Information Systems Specialist',
+    headline: 'Information Systems Student & Certified Full Stack Developer',
+    bio: 'I am Kwizera Zaidi, a dedicated Full Stack Developer pursuing a degree in Information Systems at the University of Rwanda (expected graduation 2027). I hold an Advanced Level (A2) certificate in Mathematics, Economics, and Computer Science (MCE) from G.S. APAPEC Murambi. I specialize in software engineering, database-driven web applications (Python, Flask, React, MySQL, JavaScript), and quantitative systems design.',
     email: 'zaidikwizera@gmail.com',
     phone: '0785283267',
     address: 'Kigali, Rwanda',
@@ -19,9 +19,9 @@ const defaultData = {
     nationality: 'Rwandan',
     maritalStatus: 'Single',
     location: 'Kigali, Rwanda',
-    availability: 'Open to Work & Freelance Photography',
-    education: 'University of Rwanda (Information Systems, Class of 2027)',
-    experienceNotes: 'AI-assisted full-stack development, Python/Flask API design, and professional photography.',
+    availability: 'Open to Full Stack & Software Engineering Roles',
+    education: 'University of Rwanda (Information Systems) & A2 MCE Certificate',
+    experienceNotes: 'Full-stack web application development, Python/Flask API design, and database engineering.',
     image: '/profile.jpeg',
     cv: '',
     experienceYears: '2+'
@@ -188,10 +188,17 @@ export default function App() {
           w => !(defaultData.works || []).some(defW => defW.title === w.title)
         )
 
+        const loadedProfile = { ...defaultData.profile, ...(parsed.profile || {}) }
+        if (loadedProfile.bio && loadedProfile.bio.includes('Professional Photographer currently pursuing')) {
+          loadedProfile.bio = defaultData.profile.bio
+          loadedProfile.title = defaultData.profile.title
+          loadedProfile.headline = defaultData.profile.headline
+        }
+
         setData({
           ...defaultData,
           ...parsed,
-          profile: { ...defaultData.profile, ...(parsed.profile || {}) },
+          profile: loadedProfile,
           social: { ...defaultData.social, ...(parsed.social || {}) },
           projects: [...mergedProjects, ...extraProjects],
           works: [...mergedWorks, ...extraWorks]
@@ -333,6 +340,18 @@ export default function App() {
       <header className="hero" id="home">
         <div className="hero-inner container">
           <div className="hero-content">
+            {/* Clean PDF CV Export Header (Visible only when exporting/printing CV) */}
+            <div className="print-cv-header print-only">
+              <h1>{data.profile.name}</h1>
+              <h2>{data.profile.title}</h2>
+              <div className="print-cv-contact">
+                <span>📧 {data.profile.email}</span>
+                <span>📞 {data.profile.phone}</span>
+                <span>📍 {data.profile.location}</span>
+                {data.social.github && <span>💻 {data.social.github.replace('https://', '')}</span>}
+              </div>
+            </div>
+
             <span className="badge no-print">{data.profile.headline}</span>
             <h1 className="hero-title">
               Hi, I'm <span>{data.profile.name}</span>
@@ -667,7 +686,7 @@ export default function App() {
 
       {/* Footer */}
       {/* Secret entry 3: Double click on footer directly triggers admin passcode verification */}
-      <footer className="footer" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
+      <footer className="footer no-print" onDoubleClick={handleAdminAccessClick} title="Double-click to verify admin">
         <div className="container">
           <div className="footer-logo">{data.profile.name}</div>
           <p style={{ marginBottom: '1rem' }}>Full Stack Developer • Information Systems Graduate</p>
@@ -677,7 +696,7 @@ export default function App() {
 
       {/* Passcode Modal Overlay */}
       {showPasscodeModal && (
-        <div className="modal-overlay">
+        <div className="modal-overlay no-print">
           <form className="modal-content" onSubmit={verifyPasscode}>
             <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', color: 'var(--text-primary)', fontWeight: 800 }}>
               Unlock Editor
