@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ProjectCard from './components/ProjectCard'
 import AdminPanel from './components/AdminPanel'
 import IntroScreen from './components/IntroScreen'
@@ -31,6 +31,11 @@ const defaultData = {
     { name: 'Computer Science & Software Development', level: '88' },
     { name: 'React.js & Frontend Architectures', level: '85' },
     { name: 'Python & Flask Framework', level: '85' },
+    { name: 'Data Entry & Spreadsheet Management', level: '92' },
+    { name: 'Microsoft Office & Google Workspace', level: '90' },
+    { name: 'PC Maintenance & Troubleshooting', level: '85' },
+    { name: 'Touch Typing & Rapid Data Processing', level: '88' },
+    { name: 'Internet Research & Technical Sourcing', level: '86' },
     { name: 'Photography & Digital Media Production', level: '88' },
     { name: 'Adobe Lightroom & Photo Color Grading', level: '85' },
     { name: 'NumPy & Pandas (Data Analysis)', level: '80' },
@@ -152,6 +157,99 @@ const defaultData = {
   }
 }
 
+function IdBadge({ profile, social }) {
+  const [isHot, setIsHot] = useState(false)
+  const [swingClass, setSwingClass] = useState('swing')
+  const cardRef = useRef(null)
+
+  const triggerSwing = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    setSwingClass('')
+    requestAnimationFrame(() => {
+      setSwingClass('swing')
+    })
+  }
+
+  const handlePointerMove = (e) => {
+    if (e.pointerType === 'touch') return
+    const card = cardRef.current
+    if (!card) return
+    const r = card.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width - 0.5
+    const y = (e.clientY - r.top) / r.height - 0.5
+    card.style.transition = 'transform 0.1s'
+    card.style.transform = `rotateX(${-y * 14}deg) rotateY(${x * 14}deg) translateY(-6px)`
+    card.style.setProperty('--gx', `${(x + 0.5) * 100}%`)
+    card.style.setProperty('--gy', `${(y + 0.5) * 100}%`)
+    setIsHot(true)
+  }
+
+  const handlePointerLeave = (e) => {
+    const card = cardRef.current
+    if (!card) return
+    card.style.transition = 'transform 0.6s cubic-bezier(0.2, 1.4, 0.4, 1)'
+    card.style.transform = ''
+    setIsHot(false)
+    if (e.pointerType !== 'touch') {
+      triggerSwing()
+    }
+  }
+
+  const handlePointerDown = (e) => {
+    if (e.pointerType === 'touch') {
+      triggerSwing()
+    }
+  }
+
+  return (
+    <div className={`id-badge ${swingClass} no-print`} id="badge">
+      <div className="id-strap"></div>
+      <div 
+        className={`id-card ${isHot ? 'hot' : ''}`} 
+        ref={cardRef}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
+        onPointerDown={handlePointerDown}
+      >
+        <div className="id-glare"></div>
+        <div 
+          className="id-ph" 
+          style={{ backgroundImage: `url(${profile.image || '/profile.jpeg'})` }}
+          role="img" 
+          aria-label={profile.name}
+        ></div>
+        <h3>{profile.name}</h3>
+        <div className="id-role">{profile.title}</div>
+        <a className="id-row" href={`mailto:${profile.email}`}>{profile.email}</a>
+        <a className="id-row" href={`tel:${(profile.phone || '').replace(/[^+\d]/g, '')}`}>{profile.phone}</a>
+        <div className="id-soc">
+          {social?.github && (
+            <a href={social.github} target="_blank" rel="noreferrer" title="GitHub">
+              <svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.26.8-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.19.7.8.58A12 12 0 0 0 12 .3z"/></svg>
+            </a>
+          )}
+          {social?.linkedin && (
+            <a href={social.linkedin} target="_blank" rel="noreferrer" title="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            </a>
+          )}
+          {social?.instagram && (
+            <a href={social.instagram} target="_blank" rel="noreferrer" title="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+            </a>
+          )}
+          {social?.x && (
+            <a href={social.x} target="_blank" rel="noreferrer" title="X">
+              <svg viewBox="0 0 24 24"><path d="M18.2 2.25h3.3l-7.2 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg>
+            </a>
+          )}
+        </div>
+        <div className="id-handle">@am2aidi</div>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [data, setData] = useState(defaultData)
   const [showAdmin, setShowAdmin] = useState(false)
@@ -165,6 +263,20 @@ export default function App() {
     const params = new URLSearchParams(window.location.search)
     return !(params.get('admin') === 'true' || params.get('nointro') === 'true')
   })
+
+  // Mouse parallax for full-page ambient background
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const bg = document.getElementById('pbg')
+    if (!bg) return
+    const handleMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * -18
+      const y = (e.clientY / window.innerHeight - 0.5) * -10
+      bg.style.transform = `translate(${x}px, ${y}px)`
+    }
+    window.addEventListener('pointermove', handleMove)
+    return () => window.removeEventListener('pointermove', handleMove)
+  }, [])
 
   // Load from LocalStorage and check URL query parameters
   useEffect(() => {
@@ -207,10 +319,20 @@ export default function App() {
           loadedProfile.headline = defaultData.profile.headline
         }
 
+        // Merge skills to add new default skills into local storage
+        const currentSkills = parsed.skills || []
+        const mergedSkills = [...currentSkills]
+        defaultData.skills.forEach(defSkill => {
+          if (!mergedSkills.some(s => s.name === defSkill.name)) {
+            mergedSkills.push(defSkill)
+          }
+        })
+
         setData({
           ...defaultData,
           ...parsed,
           profile: loadedProfile,
+          skills: mergedSkills,
           social: { ...defaultData.social, ...(parsed.social || {}) },
           projects: [...mergedProjects, ...extraProjects],
           works: [...mergedWorks, ...extraWorks]
@@ -316,6 +438,9 @@ export default function App() {
 
   return (
     <div className="app">
+      {/* Fixed Ambient Background Layer */}
+      <div className="page-bg no-print" id="pbg" aria-hidden="true"></div>
+
       {/* Cinematic Kinetic Intro Overlay */}
       {showIntro && <IntroScreen onFinish={handleIntroFinish} />}
 
@@ -365,13 +490,6 @@ export default function App() {
 
         {/* Hero Section Poster & VisionOS Glass Style */}
         <header className="hero" id="home">
-          {data.profile.image && (
-            <div 
-              className="hero-bg-photo no-print" 
-              style={{ backgroundImage: `url(${data.profile.image})` }}
-            ></div>
-          )}
-          <div className="hero-bg-overlay no-print"></div>
           <div className="hero-bg-watermark no-print">PORTFOLIO</div>
           <div className="hero-inner container">
             <div className="hero-content">
@@ -426,37 +544,9 @@ export default function App() {
             </div>
           </div>
 
-          {/* Hero Visual Avatar */}
+          {/* Hero Visual: Interactive 3D ID Badge Card */}
           <div className="hero-visual">
-            <div className="avatar-wrapper">
-              <div className="avatar-bg-glow no-print"></div>
-              <div className="avatar-frame">
-                {data.profile.image ? (
-                  <img src={data.profile.image} alt={data.profile.name} className="avatar-image" />
-                ) : (
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(135deg, #1e1b4b, #311042)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '16px',
-                    color: 'var(--text-secondary)',
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '3rem',
-                    fontWeight: 800
-                  }}>
-                    {data.profile.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                )}
-              </div>
-              <div className="experience-badge no-print">
-                <div className="experience-number">{data.profile.experienceYears}</div>
-                <div className="experience-text">Years Exp.</div>
-              </div>
-            </div>
+            <IdBadge profile={data.profile} social={data.social} />
           </div>
         </div>
       </header>

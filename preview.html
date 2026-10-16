@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Name | Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root { --bg:#070405; --red:#e11d2e; --deep:#5a0510; --ink:#f4eeee; --mute:#b9a7a9; --line:rgba(225,29,46,.35);
+  --disp:'Anton',Impact,'Arial Narrow',sans-serif; --body:'Space Grotesk',system-ui,sans-serif; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.55; }
+a { color:inherit; text-decoration:none; }
+nav { position:fixed; z-index:20; top:14px; left:50%; transform:translateX(-50%); display:flex; gap:6px; align-items:center;
+  padding:6px 8px 6px 18px; border:1px solid var(--line); border-radius:999px; background:rgba(10,4,6,.7); backdrop-filter:blur(10px); font-size:13px; white-space:nowrap; }
+nav b { margin-right:10px; font-weight:700; }
+nav a.l { padding:7px 13px; border-radius:999px; color:var(--mute); }
+nav a.l:hover, nav a.l:focus-visible { background:var(--red); color:#fff; outline:none; }
+.hero { position:relative; min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:90px 6vw 40px; overflow:hidden;
+  background:radial-gradient(ellipse at 70% 45%, rgba(141,11,27,.5) 0%, rgba(90,5,16,.2) 32%, transparent 70%),
+             repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 2px, transparent 2px 46px); }
+.bg { position:absolute; top:0; bottom:0; left:25%; right:0; background-size:cover; background-position:48% 0; background-repeat:no-repeat; mix-blend-mode:screen; transition:transform .25s ease-out; }
+.fade { position:absolute; inset:0; background:linear-gradient(90deg,var(--bg) 0,rgba(7,4,5,.75) 26%,transparent 55%); pointer-events:none; }
+.page-bg { position:fixed; inset:-24px; z-index:-1; pointer-events:none; transition:transform .3s ease-out;
+  background:
+    linear-gradient(90deg, rgba(7,4,5,.94) 0, rgba(7,4,5,.78) 40%, rgba(7,4,5,.62) 100%),
+    radial-gradient(ellipse at 68% 42%, rgba(170,14,30,.4), transparent 62%),
+    var(--photo) right -220px top / auto 100% no-repeat; }
+.copy { position:relative; z-index:2; max-width:560px; }
+.hi { font-family:var(--disp); font-size:clamp(22px,3vw,34px); color:var(--red); letter-spacing:.02em; }
+h1 { margin:0; font-family:var(--disp); font-weight:400; font-size:clamp(64px,10vw,150px); line-height:.92; text-transform:uppercase; }
+.role { margin:18px 0 10px; color:var(--red); font-weight:700; letter-spacing:.04em; }
+.copy p { color:var(--mute); max-width:46ch; }
+.btns { display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; }
+.btn { padding:12px 22px; border:1px solid var(--line); border-radius:8px; background:rgba(0,0,0,.45); font-weight:700; font-size:14px; }
+.btn.p { background:var(--red); border-color:var(--red); }
+.btn:hover, .btn:focus-visible { transform:translateY(-2px); outline:2px solid #fff; outline-offset:2px; }
+.badge { position:absolute; z-index:3; right:5vw; top:0; width:240px; perspective:900px; transform-origin:50% 0; }
+.badge.swing { animation:swing 2.6s ease-out 1 both; }
+.strap { position:relative; z-index:2; width:22px; height:84px; margin:0 auto; background:var(--red); }
+.strap::after { content:""; position:absolute; left:50%; bottom:-8px; width:38px; height:16px; transform:translateX(-50%); background:#c9c9cf; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,.45); }
+.card { position:relative; margin-top:-2px; padding:12px; border-radius:16px; background:#f3eded; color:#111; overflow:hidden; box-shadow:0 22px 50px rgba(0,0,0,.6); transform-style:preserve-3d; will-change:transform; }
+.glare { position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .25s; background:radial-gradient(circle at var(--gx,50%) var(--gy,30%), rgba(255,255,255,.6), transparent 55%); }
+.card.hot .glare { opacity:1; }
+.ph { height:150px; border-radius:10px; background-color:#000; background-size:460px auto; background-position:-111px -30px; background-repeat:no-repeat; }
+.card h3 { margin:12px 0 0; font-size:20px; line-height:1.15; }
+.brole { color:var(--red); font-size:12px; font-weight:700; letter-spacing:.03em; margin-bottom:8px; }
+.card a.row { display:block; padding:2px 0; font-size:13px; color:#222; word-break:break-all; }
+.card a.row:hover, .card a.row:focus-visible { color:var(--red); outline:none; text-decoration:underline; }
+.soc { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+.soc a { width:30px; height:30px; border-radius:50%; background:#111; color:#fff; display:grid; place-items:center; transition:background .2s, transform .2s; }
+.soc a:hover, .soc a:focus-visible { background:var(--red); transform:translateY(-2px); outline:2px solid #111; outline-offset:2px; }
+.soc svg { width:15px; height:15px; fill:currentColor; }
+.handle { margin-top:8px; font-size:12px; font-weight:700; color:#555; }
+@keyframes swing { 0%{transform:rotate(14deg)} 30%{transform:rotate(-9deg)} 55%{transform:rotate(5deg)} 80%{transform:rotate(-2deg)} 100%{transform:rotate(0)} }
+.stats { position:absolute; z-index:2; right:5vw; bottom:36px; display:flex; gap:28px; }
+.stats div { font-family:var(--disp); font-size:42px; color:var(--red); line-height:1; }
+.stats small { display:block; font-family:var(--body); font-size:11px; color:var(--mute); }
+section.s { padding:90px 6vw; border-top:1px solid var(--line); }
+h2 { margin:0 0 30px; font-family:var(--disp); font-weight:400; font-size:clamp(36px,5vw,64px); text-transform:uppercase; }
+.bento { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:190px; gap:14px; }
+.bento a { position:relative; padding:18px; border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; background:rgba(18,8,10,.72); backdrop-filter:blur(3px); }
+.bento a:nth-child(1) { grid-column:span 2; grid-row:span 2; }
+.bento a:nth-child(4) { grid-column:span 2; }
+.bento a::before { content:""; position:absolute; inset:0; opacity:.9; }
+.bento a:nth-child(1)::before { background:conic-gradient(from 200deg at 70% 30%, #e11d2e, #1a0508, #7d0c19, #1a0508); }
+.bento a:nth-child(2)::before { background:linear-gradient(135deg,#2a0a10 40%,#e11d2e 41% 43%,#2a0a10 44%); }
+.bento a:nth-child(3)::before { background:repeating-linear-gradient(0deg,#e11d2e 0 3px,transparent 3px 14px) , #1a0508; opacity:.35; }
+.bento a:nth-child(4)::before { background:radial-gradient(circle at 80% 20%, #e11d2e, transparent 45%), #12080a; }
+.bento a > * { position:relative; text-shadow:0 2px 12px #000; }
+.bento b { font-size:20px; } .bento span { color:var(--mute); font-size:13px; }
+.bento a:hover, .bento a:focus-visible { border-color:var(--red); outline:none; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+.job { padding:18px 0; border-bottom:1px solid var(--line); }
+.job small { color:var(--red); font-weight:700; } .job p { margin:4px 0 0; color:var(--mute); }
+.chips { display:flex; flex-wrap:wrap; gap:10px; }
+.chips span { padding:8px 16px; border:1px solid var(--line); border-radius:999px; }
+.contact { text-align:center; }
+.contact .big { font-family:var(--disp); font-size:clamp(34px,7vw,96px); text-transform:uppercase; line-height:1; }
+.contact .big:hover { color:var(--red); }
+footer { padding:24px; text-align:center; color:var(--mute); font-size:13px; border-top:1px solid var(--line); }
+@media (min-width:1100px) {
+  .badge { position:fixed; z-index:10; right:22px; top:max(70px, calc(50vh - 290px)); }
+  section.s, footer { padding-right:calc(6vw + 270px); }
+  .stats { right:calc(5vw + 270px); }
+}
+@media (max-width:820px) {
+  nav { font-size:12px; } nav b { display:none; }
+  .hero { grid-template-columns:1fr; align-items:center; padding-top:100px; } 
+  .page-bg { background-position:center, center, 50% 0; background-size:auto, auto, cover; } .copy { margin-top:0; }
+  .badge { position:relative; right:auto; top:auto; order:-1; margin:0 auto 20px; } .stats { display:none; }
+  .bento { grid-template-columns:1fr 1fr; } .two { grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce) { .badge.swing { animation:none; } html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+<div class="page-bg" id="pbg" aria-hidden="true"></div>
+<nav aria-label="Main"><b id="nName">Your Name</b><a class="l" href="#work">Work</a><a class="l" href="#about">About</a><a class="l" href="#contact">Contact</a></nav>
+
+<header class="hero" id="top">
+  
+  <div class="copy">
+    <div class="hi">Hello, I'm</div>
+    <h1 id="hName">Your<br>Name</h1>
+    <div class="role" id="hRole">Creative Developer &amp; Designer</div>
+    <p>I build bold, fast websites and digital products. Replace this text with two lines about what you do and who you do it for.</p>
+    <div class="btns"><a class="btn p" href="#contact">Get in touch</a><a class="btn" href="#work">See my work</a></div>
+  </div>
+  <div class="badge" id="badge"><div class="strap"></div><div class="card" id="card"><div class="glare"></div><div class="ph" id="ph" role="img" aria-label="Portrait"></div>
+    <h3 id="bName"></h3><div class="brole" id="bRole"></div><a class="row" id="bMail"></a><a class="row" id="bTel"></a><div class="soc" id="soc"></div><div class="handle" id="bHandle"></div></div></div>
+  <div class="stats"><div>5+<small>Years building</small></div><div>30<small>Projects shipped</small></div></div>
+</header>
+
+<section class="s" id="work">
+  <h2>Featured work</h2>
+  <div class="bento">
+    <a href="#"><b>Project One</b><span>Flagship product, web app</span></a>
+    <a href="#"><b>Project Two</b><span>Brand and website</span></a>
+    <a href="#"><b>Project Three</b><span>Data dashboard</span></a>
+    <a href="#"><b>Project Four</b><span>Mobile experience and campaign site</span></a>
+  </div>
+</section>
+
+<section class="s" id="about">
+  <div class="two">
+    <div><h2>Experience</h2>
+      <div class="job"><small>2024 to now</small><br><b>Role title, Company</b><p>One line on what you built and the result.</p></div>
+      <div class="job"><small>2022 to 2024</small><br><b>Role title, Company</b><p>One line on what you built and the result.</p></div>
+      <div class="job"><small>2021</small><br><b>Education or first role</b><p>One line about it.</p></div></div>
+    <div><h2>Skills</h2><div class="chips"><span>Web design</span><span>JavaScript</span><span>React</span><span>Three.js</span><span>UI / UX</span><span>Branding</span></div></div>
+  </div>
+</section>
+
+<section class="s contact" id="contact">
+  <h2>Let's work together</h2>
+  <a class="big" id="cMail" href="mailto:you@example.com">you@example.com</a>
+</section>
+<footer>&copy; 2026 Your Name. Sample portfolio.</footer>
+
+<script>
+// Use your photo file path directly:
+const IMG = "profile.jpeg";
+
+document.documentElement.style.setProperty('--photo', `url(${IMG})`);
+document.getElementById('ph').style.backgroundImage = `url(${IMG})`;
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const bg = document.getElementById('pbg');
+  addEventListener('pointermove', e => {
+    bg.style.transform = `translate(${(e.clientX / innerWidth - .5) * -18}px, ${(e.clientY / innerHeight - .5) * -10}px) `;
+  });
+}
+
+/* ====== EDIT YOUR DETAILS HERE ====== */
+const ME = { name:'Your Name', role:'Creative Developer', email:'you@example.com', phone:'+250 700 000 000', handle:'am2aidi',
+  socials:['instagram','tiktok','x','youtube','facebook','linkedin','github'] };
+/* ==================================== */
+const $ = id => document.getElementById(id);
+const S = {
+  instagram:{ n:'Instagram', u:h=>`https://instagram.com/${h}`, p:'<path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/>' },
+  tiktok:{ n:'TikTok', u:h=>`https://tiktok.com/@${h}`, p:'<path d="M12.5.02c1.3-.02 2.6-.01 3.9-.02.1 1.5.6 3.1 1.8 4.2 1.1 1.1 2.7 1.6 4.2 1.8v4c-1.4 0-2.9-.3-4.2-1-.6-.3-1.1-.6-1.6-.9 0 2.9 0 5.8 0 8.8-.1 1.4-.5 2.8-1.4 3.9-1.3 1.9-3.600 3.200-5.900 3.200-1.400.1-2.900-.3-4.100-1-2-1.200-3.400-3.400-3.700-5.700 0-.5 0-1 0-1.500.2-1.900 1.100-3.700 2.600-5 1.700-1.400 4-2.100 6.200-1.700 0 1.500 0 3 0 4.400-1-.3-2.200-.2-3 .4-.6.400-1.100 1-1.400 1.800-.2.500-.1 1.100-.1 1.600.2 1.600 1.800 3 3.500 2.900 1.100 0 2.200-.7 2.800-1.600.2-.3.400-.7.400-1.100.1-1.800.1-3.600.1-5.400 0-4 0-8.100 0-12.100z"/>' },
+  x:{ n:'X', u:h=>`https://x.com/${h}`, p:'<path d="M18.2 2.25h3.3l-7.2 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/>' },
+  youtube:{ n:'YouTube', u:h=>`https://youtube.com/@${h}`, p:'<path d="M23.5 6.19a3 3 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3 3 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3 3 0 0 0 2.12 2.14c1.87.5 9.38.5 9.38.5s7.5 0 9.38-.5a3 3 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12z"/>' },
+  facebook:{ n:'Facebook', u:h=>`https://facebook.com/${h}`, p:'<path d="M24 12.07C24 5.45 18.63.07 12 .07S0 5.45 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.39H7.08v-3.46h3.05V9.43c0-3 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.52c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.46h-2.8v8.39C19.61 23.03 24 18.06 24 12.07z"/>' },
+  linkedin:{ n:'LinkedIn', u:h=>`https://linkedin.com/in/${h}`, p:'<path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>' },
+  github:{ n:'GitHub', u:h=>`https://github.com/${h}`, p:'<path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.26.8-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.19.7.8.58A12 12 0 0 0 12 .3z"/>' }
+};
+$('nName').textContent = ME.name;
+$('hName').replaceChildren(...ME.name.split(' ').flatMap((w,i)=> i ? [document.createElement('br'), w] : [w]));
+$('hRole').textContent = ME.role;
+$('bName').textContent = ME.name; $('bRole').textContent = ME.role;
+$('bMail').textContent = ME.email; $('bMail').href = 'mailto:' + ME.email;
+$('bTel').textContent = ME.phone; $('bTel').href = 'tel:' + ME.phone.replace(/[^+\d]/g,'');
+$('cMail').textContent = ME.email; $('cMail').href = 'mailto:' + ME.email;
+$('bHandle').textContent = '@' + ME.handle;
+$('soc').innerHTML = ME.socials.map(k => `<a href="${S[k].u(ME.handle)}" target="_blank" rel="noopener" aria-label="${S[k].n}: ${ME.handle}" title="${S[k].n}"><svg viewBox="0 0 24 24" aria-hidden="true">${S[k].p}</svg></a>`).join('');
+
+/* Badge motion: swing on load, tilt + glare on hover, swing again on leave */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const badge = $('badge'), card = $('card');
+const swing = () => { if (reduce) return; badge.classList.remove('swing'); void badge.offsetWidth; badge.classList.add('swing'); };
+swing();
+if (!reduce) {
+  card.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+    const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    card.style.transition = 'transform .1s';
+    card.style.transform = `rotateX(${-y * 14}deg) rotateY(${x * 14}deg) translateY(-6px)`;
+    card.style.setProperty('--gx', (x + .5) * 100 + '%'); card.style.setProperty('--gy', (y + .5) * 100 + '%');
+    card.classList.add('hot');
+  });
+  card.addEventListener('pointerleave', e => {
+    card.style.transition = 'transform .6s cubic-bezier(.2,1.4,.4,1)'; card.style.transform = ''; card.classList.remove('hot');
+    if (e.pointerType !== 'touch') swing();
+  });
+  card.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') swing(); });
+}
+</script>
+</body>
+</html>
