@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProjectCard from './components/ProjectCard'
 import AdminPanel from './components/AdminPanel'
+import IntroScreen from './components/IntroScreen'
 
 const STORAGE_KEY = 'portfolio-data'
 
@@ -160,6 +161,10 @@ export default function App() {
   const [showPasscodeModal, setShowPasscodeModal] = useState(false)
   const [passcodeInput, setPasscodeInput] = useState('')
   const [passcodeError, setPasscodeError] = useState('')
+  const [showIntro, setShowIntro] = useState(() => {
+    const params = new URLSearchParams(window.location.search)
+    return !(params.get('admin') === 'true' || params.get('nointro') === 'true')
+  })
 
   // Load from LocalStorage and check URL query parameters
   useEffect(() => {
@@ -299,8 +304,21 @@ export default function App() {
   // Sliced skills list
   const visibleSkills = showAllSkills ? (data.skills || []) : (data.skills || []).slice(0, 6)
 
+  const handleIntroFinish = (targetSection) => {
+    setShowIntro(false)
+    if (targetSection === 'contact') {
+      setTimeout(() => {
+        const el = document.getElementById('contact')
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      }, 150)
+    }
+  }
+
   return (
     <div className="app">
+      {/* Cinematic Kinetic Intro Overlay */}
+      {showIntro && <IntroScreen onFinish={handleIntroFinish} />}
+
       {/* Interactive Main Website */}
       <div className="app-website-root">
         {/* Navigation Header */}
