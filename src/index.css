@@ -1624,10 +1624,24 @@ input:checked + .slider::before {
     color: #000000 !important;
   }
 
+  .pdf-meta-link {
+    color: #0b57d0 !important;
+    text-decoration: underline !important;
+    font-weight: 700 !important;
+    font-size: 8.5pt !important;
+  }
+
   .pdf-link {
     font-size: 8pt !important;
-    color: #475569 !important;
-    font-weight: 600 !important;
+    color: #0b57d0 !important;
+    text-decoration: underline !important;
+    font-weight: 700 !important;
+    word-break: break-all !important;
+  }
+
+  .pdf-link:hover,
+  .pdf-meta-link:hover {
+    color: #084298 !important;
   }
 
   .pdf-project-desc {

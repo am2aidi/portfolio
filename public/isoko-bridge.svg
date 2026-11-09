@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 160" role="img" aria-labelledby="title desc">
+  <title id="title">Isoko Bridge</title>
+  <desc id="desc">Three bridge arches above the words Isoko Bridge.</desc>
+  <g fill="none" stroke="#34d399" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 48 Q270 12 476 48" stroke-width="2.5"/>
+    <path d="M82 98 C82 60 166 60 166 98" stroke-width="2.5"/>
+    <path d="M212 98 C212 42 328 42 328 98" stroke-width="3"/>
+    <path d="M374 98 C374 60 458 60 458 98" stroke-width="2.5"/>
+  </g>
+  <text x="270" y="141" text-anchor="middle" fill="#f8fafc" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="10">ISOKO BRIDGE</text>
+</svg>

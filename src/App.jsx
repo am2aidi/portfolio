@@ -56,6 +56,41 @@ const defaultData = {
   ],
   projects: [
     {
+      title: 'KEYSTONE Architects',
+      description: 'Architecture and interior design studio platform designed for Keystone Architects in Kigali, Rwanda. Features luxury architectural portfolios, sustainable residential & commercial tower showcases, interactive project dashboards, and an integrated client portal.',
+      link: 'https://github.com/am2aidi/KEYSTONE',
+      image: '/keystone.jpg',
+      tags: 'Architecture, JavaScript, Client Portal, HTML5/CSS3, Netlify/Vercel'
+    },
+    {
+      title: 'Isoko Bridge (Ikiraro cya VUP)',
+      description: 'Social fintech payment bridge and food market planner tool built for the NISR 2026 Big Data Hackathon (Track 3: Open Innovation). Connects VUP social support households to local food sellers while waiting for late stipend distributions, backed by NISR survey microdata analysis and interactive planner metrics.',
+      link: 'https://ikiraro-vup-bridge.vercel.app/',
+      image: '/isoko-bridge.svg',
+      tags: 'Fintech, NISR Big Data, Hackathon, Node.js, Vercel, Analytics'
+    },
+    {
+      title: 'Huranow Motors',
+      description: 'Nike-inspired automotive marketplace and interactive 3D cockpit studio. Features real-time WebGL Three.js 3D rendering for track hypercars, 4x4 SUVs, electric vehicles, and superbikes with multi-tier showroom browsing, responsive filter controls, and desktop & mobile builds.',
+      link: 'https://github.com/am2aidi/vehichels',
+      image: '/huranow-motors.png',
+      tags: 'Three.js, WebGL 3D, Automotive, Tauri, Capacitor, JavaScript'
+    },
+    {
+      title: 'Huranow Outfits & Apparel',
+      description: 'Stealth luxury and athletic performance store inspired by Nike aesthetics. Features an interactive Real Mannequin Fitting Studio allowing users to fit outfits on live models and purchase complete looks with 1-click checkout, offline PWA caching, and cross-platform native builds.',
+      link: 'https://github.com/am2aidi/outfits-',
+      image: '/huranow-outfits.jpg',
+      tags: 'E-Commerce, PWA, Mannequin Studio, Tauri, Capacitor, CSS3'
+    },
+    {
+      title: 'Private Room (Zero-Record Chat)',
+      description: 'Zero-record, end-to-end encrypted private chat and audio communication application. Engineered according to strict zero-footprint specifications with self-destructing view-once media, no database message logging, and encrypted WebRTC real-time calling.',
+      link: 'https://github.com/am2aidi/PrivateRoom',
+      image: '',
+      tags: 'E2EE, WebRTC, React, Vite, Node.js, Privacy Security'
+    },
+    {
       title: 'Hura App',
       description: 'Hura App is a localized, real-time dispatch and request platform designed to connect service seekers with local service providers and drivers. It features dynamic location tracking, real-time message exchange elements, a responsive mobile-first UI built with React/Vite, custom CSS animations, and instant provider match notifications.',
       link: 'https://huraapp.vercel.app/',
@@ -890,9 +925,16 @@ export default function App() {
           <p className="pdf-title">{data.profile.title}</p>
         </div>
         <div className="pdf-header-meta">
-          <div><strong>Email:</strong> {data.profile.email}</div>
-          <div><strong>Phone:</strong> {data.profile.phone}</div>
+          <div><strong>Email:</strong> <a href={`mailto:${data.profile.email}`} className="pdf-meta-link">{data.profile.email}</a></div>
+          <div><strong>Phone:</strong> <a href={`tel:${(data.profile.phone || '').replace(/[^+\d]/g, '')}`} className="pdf-meta-link">{data.profile.phone}</a></div>
           <div><strong>Location:</strong> {data.profile.location}</div>
+          {data.social?.github && (
+            <div><strong>GitHub:</strong> <a href={data.social.github} target="_blank" rel="noreferrer" className="pdf-meta-link">{data.social.github.replace(/^https?:\/\//, '')}</a></div>
+          )}
+          {data.social?.linkedin && (
+            <div><strong>LinkedIn:</strong> <a href={data.social.linkedin} target="_blank" rel="noreferrer" className="pdf-meta-link">{data.social.linkedin.replace(/^https?:\/\//, '')}</a></div>
+          )}
+          <div><strong>Portfolio:</strong> <a href="https://portfolio-am2aidi.vercel.app/" target="_blank" rel="noreferrer" className="pdf-meta-link">portfolio-am2aidi.vercel.app</a></div>
           <div><strong>Date:</strong> {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div>
         </div>
       </header>
@@ -920,19 +962,22 @@ export default function App() {
       <section className="pdf-section">
         <h2 className="pdf-heading">TECHNICAL SKILLS & PROFICIENCIES</h2>
         <div className="pdf-skills-list">
-          {(data.skills || []).slice(0, 12).map((s, idx) => (
+          {(data.skills || []).slice(0, 16).map((s, idx) => (
             <span key={idx} className="pdf-skill-badge">{s.name} ({s.level}%)</span>
           ))}
         </div>
       </section>
 
       <section className="pdf-section">
-        <h2 className="pdf-heading">FEATURED PROJECTS (SHORT SUMMARY)</h2>
+        <h2 className="pdf-heading">FEATURED PROJECTS & LIVE REPOSITORIES</h2>
         <div className="pdf-projects-list">
-          {(data.projects || []).slice(0, 4).map((proj, idx) => (
+          {(data.projects || []).slice(0, 8).map((proj, idx) => (
             <div key={idx} className="pdf-project-item">
               <div className="pdf-project-title">
-                <strong>{idx + 1}. {proj.title}</strong> — <span className="pdf-link">{proj.link}</span>
+                <strong>{idx + 1}. {proj.title}</strong>
+                {proj.link && (
+                  <> — <a href={proj.link} target="_blank" rel="noreferrer" className="pdf-link">{proj.link}</a></>
+                )}
               </div>
               <p className="pdf-project-desc">{proj.description}</p>
               <div className="pdf-tags">Stack: {proj.tags}</div>
@@ -946,7 +991,14 @@ export default function App() {
         <div className="pdf-projects-list">
           {(data.works || []).map((w, idx) => (
             <div key={idx} className="pdf-project-item">
-              <strong>{w.title}</strong>: {w.description}
+              <div className="pdf-project-title">
+                <strong>{w.title}</strong>
+                {w.link && w.link !== '#' && (
+                  <> — <a href={w.link} target="_blank" rel="noreferrer" className="pdf-link">{w.link}</a></>
+                )}
+              </div>
+              <p className="pdf-project-desc">{w.description}</p>
+              {w.tags && <div className="pdf-tags">Focus: {w.tags}</div>}
             </div>
           ))}
         </div>
