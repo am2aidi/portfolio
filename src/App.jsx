@@ -56,11 +56,11 @@ const defaultData = {
   ],
   projects: [
     {
-      title: 'KEYSTONE Architects',
-      description: 'Architecture and interior design studio platform designed for Keystone Architects in Kigali, Rwanda. Features luxury architectural portfolios, sustainable residential & commercial tower showcases, interactive project dashboards, and an integrated client portal.',
-      link: 'https://github.com/am2aidi/KEYSTONE',
-      image: '/keystone.jpg',
-      tags: 'Architecture, JavaScript, Client Portal, HTML5/CSS3, Netlify/Vercel'
+      title: 'RTDA ICT Equipment Inventory System',
+      description: 'Government-grade enterprise ICT asset lifecycle, custody allocation, maintenance tracking, and automated audit reporting system engineered for Rwanda Transport Development Agency (RTDA). Features React 19, Vite, Tailwind CSS v4, Python Django REST Framework, PostgreSQL (Neon Cloud), Brevo HTTPS OTP verification, camera QR asset scanner, and multi-sheet Excel/PDF export.',
+      link: 'https://inventory-system-rtda.vercel.app',
+      image: '/rtda_logo.jpg',
+      tags: 'React 19, Django, PostgreSQL, Tailwind v4, Vercel, Render'
     },
     {
       title: 'Isoko Bridge (Ikiraro cya VUP)',
@@ -68,27 +68,6 @@ const defaultData = {
       link: 'https://ikiraro-vup-bridge.vercel.app/',
       image: '/isoko-bridge.svg',
       tags: 'Fintech, NISR Big Data, Hackathon, Node.js, Vercel, Analytics'
-    },
-    {
-      title: 'Huranow Motors',
-      description: 'Nike-inspired automotive marketplace and interactive 3D cockpit studio. Features real-time WebGL Three.js 3D rendering for track hypercars, 4x4 SUVs, electric vehicles, and superbikes with multi-tier showroom browsing, responsive filter controls, and desktop & mobile builds.',
-      link: 'https://github.com/am2aidi/vehichels',
-      image: '/huranow-motors.png',
-      tags: 'Three.js, WebGL 3D, Automotive, Tauri, Capacitor, JavaScript'
-    },
-    {
-      title: 'Huranow Outfits & Apparel',
-      description: 'Stealth luxury and athletic performance store inspired by Nike aesthetics. Features an interactive Real Mannequin Fitting Studio allowing users to fit outfits on live models and purchase complete looks with 1-click checkout, offline PWA caching, and cross-platform native builds.',
-      link: 'https://github.com/am2aidi/outfits-',
-      image: '/huranow-outfits.jpg',
-      tags: 'E-Commerce, PWA, Mannequin Studio, Tauri, Capacitor, CSS3'
-    },
-    {
-      title: 'Private Room (Zero-Record Chat)',
-      description: 'Zero-record, end-to-end encrypted private chat and audio communication application. Engineered according to strict zero-footprint specifications with self-destructing view-once media, no database message logging, and encrypted WebRTC real-time calling.',
-      link: 'https://github.com/am2aidi/PrivateRoom',
-      image: '',
-      tags: 'E2EE, WebRTC, React, Vite, Node.js, Privacy Security'
     },
     {
       title: 'Hura App',
@@ -329,9 +308,10 @@ export default function App() {
           return defProj
         })
 
-        // Also add any projects that are in local storage but not in defaultData
+        // Only include extra projects that have a valid live deployment link
         const extraProjects = (parsed.projects || []).filter(
-          p => !(defaultData.projects || []).some(defP => defP.title === p.title)
+          p => !(defaultData.projects || []).some(defP => defP.title === p.title) &&
+               p.link && p.link !== '#' && !p.link.includes('github.com')
         )
 
         // Merge works to preserve default image paths
