@@ -273,10 +273,25 @@ export default function App() {
   const [showPasscodeModal, setShowPasscodeModal] = useState(false)
   const [passcodeInput, setPasscodeInput] = useState('')
   const [passcodeError, setPasscodeError] = useState('')
+  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const [showIntro, setShowIntro] = useState(() => {
     const params = new URLSearchParams(window.location.search)
     return !(params.get('admin') === 'true' || params.get('nointro') === 'true')
   })
+
+  // Scroll tracking for top progress bar & Back to Top button
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0
+      setScrollProgress(progress)
+      setShowScrollTop(scrollTop > 380)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Mouse parallax for full-page ambient background
   useEffect(() => {
@@ -461,6 +476,12 @@ export default function App() {
 
       {/* Interactive Main Website */}
       <div className="app-website-root">
+        {/* Scroll Progress Bar */}
+        <div
+          className="scroll-progress-bar no-print"
+          style={{ width: `${scrollProgress}%` }}
+          aria-hidden="true"
+        ></div>
         {/* Navigation Header */}
         <nav className="navbar no-print">
           <div className="navbar-inner container">
@@ -860,6 +881,21 @@ export default function App() {
           <p>© {new Date().getFullYear()} {data.profile.name}. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* Floating Back to Top Button */}
+      {showScrollTop && (
+        <button
+          type="button"
+          className="scroll-top-btn no-print"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top"
+          title="Back to top"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="18 15 12 9 6 15" />
+          </svg>
+        </button>
+      )}
 
       {/* Passcode Modal Overlay */}
       {showPasscodeModal && (
